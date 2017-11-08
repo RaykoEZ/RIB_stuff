@@ -21,6 +21,17 @@ ri.Rotate(60,0,1,0)
 
 ri.WorldBegin()
 
+#domelight
+ri.AttributeBegin()
+ri.TransformBegin()
+
+ri.Light("PxrDomeLight","myLight",{"float exposure":[0]},
+{"string lightColorMap": ["sky_env.tx"]})
+
+ri.TransformEnd()
+ri.AttributeEnd()
+
+
 #Lens Frame
 ri.TransformBegin()
 ri.AttributeBegin()
@@ -39,7 +50,7 @@ ri.TransformBegin()
 ri.AttributeBegin()
 
 ri.Translate(0.0,0.0,0.7)
-ri.Scale(1.95,1.95,0.3)
+ri.Scale(2.0,2.0,0.3)
 ri.Sphere(0.5,-1.0,0.0,360)
 
 ri.AttributeEnd()
@@ -50,7 +61,7 @@ ri.TransformBegin()
 ri.AttributeBegin()
 
 ri.Translate(0.0,0.0,0.8)
-ri.Scale(1.95,1.95,0.3)
+ri.Scale(2.0,2.0,0.3)
 ri.Sphere(0.5,1.0,0.0,360)
 
 ri.AttributeEnd()
@@ -68,9 +79,31 @@ ri.Scale(0.6,0.6,8.0)
 ri.Cylinder(0.15,0.35,0.6,360)
 ri.TransformEnd()
 
+#Handle to frame
+ri.AttributeBegin()
 ri.TransformBegin()
+ri.Bxdf("PxrDisney","frameToHandle",{"color baseColor":[0.1,0.5,0.5]})
+
+ri.Scale(0.7,0.3,0.5)
+#ri.Rotate(0,0,0,1)
+
+ri.Translate(0,2.0,1.4)
+
+ri.Torus(1,0.25,90,-90, 45 )
 
 ri.TransformEnd()
+ri.AttributeEnd()
+
+#cone at the end of handle
+ri.AttributeBegin()
+ri.TransformBegin()
+
+ri.Translate(0,0.0,-1)
+ri.Rotate(90, 0,1,0)
+ri.Cone(0.5,0.15,360)
+
+ri.TransformEnd()
+ri.AttributeEnd()
 
 ri.AttributeEnd()
 
