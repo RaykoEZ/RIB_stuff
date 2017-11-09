@@ -98,9 +98,11 @@ ri.AttributeEnd()
 ri.AttributeBegin()
 ri.TransformBegin()
 
-ri.Translate(0,0.0,-1)
+ri.Translate(2.15,2.15,0.69)
 ri.Rotate(90, 0,1,0)
-ri.Cone(0.5,0.15,360)
+ri.Rotate(-45,1,0,0)
+ri.Scale(0.6,0.6,0.6)
+ri.Cone(0.09,0.15,360)
 
 ri.TransformEnd()
 ri.AttributeEnd()
