@@ -17,7 +17,8 @@ ri.Projection(ri.PERSPECTIVE, {ri.FOV: 45}) # standard Ri tokens are available
 ri.Translate(0,0,8)
 ri.Rotate(-90,0,0,1)
 ri.Rotate(60,0,1,0)
-#ri.Rotate(-90,1,0,0)
+#ri.Rotate(90,0,1,0)
+#ri.Rotate(90,1,0,0)
 
 ri.WorldBegin()
 
@@ -67,7 +68,7 @@ ri.Sphere(0.5,1.0,0.0,360)
 ri.AttributeEnd()
 ri.TransformEnd()
 
-#Handle
+#Handle----------------------------------------------------------------------------
 
 ri.AttributeBegin()
 ri.TransformBegin()
@@ -79,7 +80,7 @@ ri.Scale(0.6,0.6,8.0)
 ri.Cylinder(0.15,0.35,0.6,360)
 ri.TransformEnd()
 
-#Handle to frame
+#Handle to frame----------------------------------
 ri.AttributeBegin()
 ri.TransformBegin()
 ri.Bxdf("PxrDisney","frameToHandle",{"color baseColor":[0.1,0.5,0.5]})
@@ -93,7 +94,7 @@ ri.Torus(1,0.25,90,-90, 45 )
 
 ri.TransformEnd()
 ri.AttributeEnd()
-
+#----------------------------------------------
 #cone at the end of handle
 ri.AttributeBegin()
 ri.TransformBegin()
@@ -108,6 +109,23 @@ ri.TransformEnd()
 ri.AttributeEnd()
 
 ri.AttributeEnd()
+
+#----------------------
+#Patch for Table Surface
+ri.AttributeBegin()
+ri.TransformBegin()
+
+ri.Rotate(90, 0,0,1)
+
+ri.Translate(-10,-5,0.82)
+ri.Bxdf("PxrDisney","frameToHandle",{"color baseColor":[0.0,0.7,0.3]})
+ri.Patch("bilinear",{ri.P:[0,0,0,  20, 0 ,0,
+                       0, 20, 0,  20, 20, 0]})
+
+ri.TransformEnd()
+ri.AttributeEnd()
+
+
 
 ri.WorldEnd()
 ri.End()
