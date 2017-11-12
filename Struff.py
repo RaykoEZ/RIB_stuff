@@ -10,18 +10,13 @@ ri = prman.Ri() # create an instance of the RenderMan interface
 rendertarget = "SeriousStruff.rib"
 ri.Begin(rendertarget)  # set rendertarget to ri.RENDER to render pixels
 ri.Display("SeriousStruff.exr", "it", "rgba")
-<<<<<<< HEAD
 ri.Hider("raytrace",{"int incremental": [1],"int maxsamples": [64],"int minsamples":[4]})
 ri.Integrator("PxrPathTracer","MyIntegrator",{"int numLightSamples":[4],"int numBxdfSamples": [4],"int numIndirectSamples": [1]})
-=======
-ri.Hider("raytrace",{"int incremental": [1]})
-ri.Integrator("PxrPathTracer","MyIntegrator")
->>>>>>> origin/master
 ri.Format(512,512,1)
 ri.Projection(ri.PERSPECTIVE, {ri.FOV: 45}) # standard Ri tokens are available
 ri.Translate(0,0,8)
 ri.Rotate(-90,0,0,1)
-ri.Rotate(60,0,1,0)
+ri.Rotate(45,0,1,0)
 #ri.Rotate(90,0,1,0)
 #ri.Rotate(90,1,0,0)
 
@@ -31,10 +26,9 @@ ri.WorldBegin()
 ri.AttributeBegin()
 ri.TransformBegin()
 
-#ri.Light("PxrDomeLight","myLight",{"float exposure":[0]},
-#{"string lightColorMap": ["sky_env.tx"]})
-ri.Translate (0.0,0.0,-5.0)
-ri.Light("PxrSphereLight", "pointLight1",{"float intensity":[50]})
+ri.Light("PxrDomeLight","myLight",{"float exposure":[0]},
+{"string lightColorMap": ["sky_env.tx"]})
+
 
 ri.TransformEnd()
 ri.AttributeEnd()
@@ -43,7 +37,7 @@ ri.AttributeBegin()
 ri.TransformBegin()
 
 
-ri.Translate(0,0,-1)
+ri.Translate(0,0,-0.5)
 
 #Lens Frame
 ri.TransformBegin()
@@ -62,42 +56,12 @@ ri.TransformBegin()
 ri.AttributeBegin()
 
 ri.Bxdf("PxrGlass","Len1",
-<<<<<<< HEAD
-{"float ior":1.47,"color transmissionColor": [0,1,0],"color reflectionColor": [0,1,0]})
-=======
-{"float ior":1.47},
-{"color transmissionColor":[0,1,0]},
-{"color reflectionColor":[0,1,0]})
->>>>>>> origin/master
+{"float ior":1.47,"color transmissionColor": [1,1,1],"color reflectionColor": [1,1,1]})
 
-#ri.Bxdf("PxrDisney","Lens1Dis",{"color baseColor": [1,1,1]},{"float roughness":0})
 
 ri.Translate(0.0,0.0,0.7)
 ri.Scale(2.0,2.0,0.3)
-ri.Sphere(0.5,-1.0,0.0,360)
-
-ri.AttributeEnd()
-ri.TransformEnd()
-
-#lens 2
-ri.TransformBegin()
-ri.AttributeBegin()
-
-ri.Bxdf("PxrGlass","Len2",
-<<<<<<< HEAD
-{"float ior":1.47,"color transmissionColor":[0,1,0],"color reflectionColor":[0,1,0]})
-=======
-{"float ior":1.47},
-{"color transmissionColor":[0,1,0]},
-{"color reflectionColor":[0,1,0]})
->>>>>>> origin/master
-
-#ri.Bxdf("PxrDisney","Lens2Dis",{"color baseColor": [1,1,0.5]},{"float roughness":0})
-
-
-ri.Translate(0.0,0.0,0.8)
-ri.Scale(2.0,2.0,0.3)
-ri.Sphere(0.5,1.0,0.0,360)
+ri.Sphere(0.5,-1.0,1.0,360)
 
 ri.AttributeEnd()
 ri.TransformEnd()
@@ -119,7 +83,6 @@ ri.TransformEnd()
 
 #Handle to frame----------------------------------
 ri.AttributeBegin()
-<<<<<<< HEAD
 ri.TransformBegin()
 ri.Bxdf("PxrDisney","frameToHandle",{"color baseColor":[0.1,0.5,0.5],"float specular":[1.0]})
 
@@ -135,24 +98,6 @@ ri.AttributeEnd()
 #----------------------------------------------
 #cone at the end of handle
 ri.AttributeBegin()
-=======
->>>>>>> origin/master
-ri.TransformBegin()
-ri.Bxdf("PxrDisney","frameToHandle",{"color baseColor":[0.1,0.5,0.5]},
-{"specular":1.0})
-
-ri.Scale(0.7,0.3,0.5)
-#ri.Rotate(0,0,0,1)
-
-ri.Translate(0,2.0,1.4)
-
-ri.Torus(1,0.25,90,-90, 45 )
-
-ri.TransformEnd()
-ri.AttributeEnd()
-#----------------------------------------------
-#cone at the end of handle
-ri.AttributeBegin()
 ri.TransformBegin()
 
 ri.Translate(2.14,2.14,0.69)
@@ -162,41 +107,11 @@ ri.Scale(0.6,0.6,0.6)
 
 ri.Cone(0.09,0.15,360)
 
-ri.Translate(2.14,2.14,0.69)
-ri.Rotate(90, 0,1,0)
-ri.Rotate(-45,1,0,0)
-ri.Scale(0.6,0.6,0.6)
-
-ri.Cone(0.09,0.15,360)
-
 ri.TransformEnd()
 ri.AttributeEnd()
 
 ri.AttributeEnd()
 
-ri.TransformEnd()
-ri.AttributeEnd()
-<<<<<<< HEAD
-
-#----------------------
-#Patch for Table Surface
-ri.AttributeBegin()
-ri.TransformBegin()
-
-ri.Rotate(90, 0,0,1)
-
-ri.Translate(-10,-5,0.82)
-ri.Bxdf("PxrDisney","frameToHandle",{"color baseColor":[1.0,0.0,1.0]})
-ri.Patch("bilinear",{ri.P:[0,0,0,  20, 0 ,0,
-                       0, 20, 0,  20, 20, 0]})
-=======
->>>>>>> origin/master
-
-ri.TransformEnd()
-ri.AttributeEnd()
-
-<<<<<<< HEAD
-=======
 ri.TransformEnd()
 ri.AttributeEnd()
 
@@ -208,14 +123,14 @@ ri.TransformBegin()
 ri.Rotate(90, 0,0,1)
 
 ri.Translate(-10,-5,0.82)
-ri.Bxdf("PxrDisney","frameToHandle",{"color baseColor":[1.0,0.0,1.0]})
+ri.Pattern("PxrTexture","patchTex",{"string filename":["Quartered_sepele_pxr128.tx"]})
+ri.Bxdf("PxrDisney","frameToHandle",{"reference color baseColor":["patchTex:resultRGB"]})
 ri.Patch("bilinear",{ri.P:[0,0,0,  20, 0 ,0,
                        0, 20, 0,  20, 20, 0]})
 
 ri.TransformEnd()
 ri.AttributeEnd()
 
->>>>>>> origin/master
 
 
 ri.WorldEnd()
