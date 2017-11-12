@@ -33,6 +33,8 @@ ri.Light("PxrDomeLight","myLight",{"float exposure":[0]},
 ri.TransformEnd()
 ri.AttributeEnd()
 
+
+#object
 ri.AttributeBegin()
 ri.TransformBegin()
 
@@ -44,8 +46,12 @@ ri.TransformBegin()
 ri.AttributeBegin()
 
 ri.Bxdf("PxrDisney","forFrame",
-{"color baseColor": [0.0,0.3,1.0]}
-)
+{"color baseColor": [0.9,0.7,0.3],
+"float metallic":[0.667],
+"float specular": [0.5],
+"float roughness": [0.1],
+"float clearcoat":[0.5]
+})
 ri.Cylinder(1.0,0.6,0.8,360)
 
 ri.AttributeEnd()
@@ -56,7 +62,10 @@ ri.TransformBegin()
 ri.AttributeBegin()
 
 ri.Bxdf("PxrGlass","Len1",
-{"float ior":1.47,"color transmissionColor": [1,1,1],"color reflectionColor": [1,1,1]})
+{"float ior":1.47,
+"color transmissionColor": [1,1,1],
+"color reflectionColor": [1,1,1]
+})
 
 
 ri.Translate(0.0,0.0,0.7)
@@ -73,10 +82,22 @@ ri.TransformEnd()
 
 ri.AttributeBegin()
 ri.TransformBegin()
+
+ri.Bxdf("PxrDisney","forHandle",
+{"color baseColor": [0.9,0.7,0.3],
+"float metallic":[0.667],
+"float specular": [0.5],
+"float roughness": [0.1],
+"float clearcoat":[0.5]
+})
+
 ri.Rotate(45,0,0,1)
 ri.Rotate(90,0,1,0)
 ri.Translate(-0.69,0,-1.78)
 ri.Scale(0.6,0.6,8.0)
+
+
+
 
 ri.Cylinder(0.15,0.35,0.6,360)
 ri.TransformEnd()
@@ -84,7 +105,14 @@ ri.TransformEnd()
 #Handle to frame----------------------------------
 ri.AttributeBegin()
 ri.TransformBegin()
-ri.Bxdf("PxrDisney","frameToHandle",{"color baseColor":[0.1,0.5,0.5],"float specular":[1.0]})
+
+ri.Bxdf("PxrDisney","forFrame1",
+{"color baseColor": [0.9,0.7,0.3],
+"float metallic":[0.667],
+"float specular": [0.5],
+"float roughness": [0.1],
+"float clearcoat":[0.5]
+})
 
 ri.Scale(0.7,0.3,0.5)
 #ri.Rotate(0,0,0,1)
@@ -99,6 +127,14 @@ ri.AttributeEnd()
 #cone at the end of handle
 ri.AttributeBegin()
 ri.TransformBegin()
+
+ri.Bxdf("PxrDisney","forCone",
+{"color baseColor": [0.9,0.7,0.3],
+"float metallic":[0.667],
+"float specular": [0.5],
+"float roughness": [0.1],
+"float clearcoat":[0.5]
+})
 
 ri.Translate(2.14,2.14,0.69)
 ri.Rotate(90, 0,1,0)
