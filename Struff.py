@@ -47,8 +47,11 @@ ri.Translate(0,0,-0.5)
 ri.TransformBegin()
 ri.AttributeBegin()
 
+ri.Pattern("first","myShader",{"color Cin":[0.9,0.9,0.5]})
+
+
 ri.Bxdf("PxrDisney","forFrame",
-{"color baseColor": [0.9,0.9,0.5],
+{"reference color baseColor": ["myShader:Cout"],
 "float metallic":[1.0],
 "float specular": [0.5],
 "float roughness": [0.3],

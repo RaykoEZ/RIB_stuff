@@ -1,0 +1,11 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.7.4.pixar38bde12
+# options: 
+shader first
+param	color	Cin	0 0 0		%read{0,0} %write{2147483647,-1}
+oparam	color	Cout	0 0 0		%read{2147483647,-1} %write{0,0}
+code ___main___
+# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\first.osl:7
+# 	}
+	assign		Cout Cin 	%filename{"C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\first.osl"} %line{7} %argrw{"wr"}
+	end
