@@ -22,7 +22,8 @@ ri.Rotate(60,0,1,0)
 #ri.Rotate(90,1,0,0)
 
 ri.WorldBegin()
-
+#global noise pattern
+ri.Pattern("first","myShader",{"color Cin":[0.9,0.9,0.5]})
 #domelight
 ri.AttributeBegin()
 ri.TransformBegin()
@@ -47,7 +48,8 @@ ri.Translate(0,0,-0.5)
 ri.TransformBegin()
 ri.AttributeBegin()
 
-ri.Pattern("first","myShader",{"color Cin":[0.9,0.9,0.5]})
+
+
 
 
 ri.Bxdf("PxrDisney","forFrame",
@@ -89,7 +91,7 @@ ri.AttributeBegin()
 ri.TransformBegin()
 
 ri.Bxdf("PxrDisney","forHandle",
-{"color baseColor": [0.9,0.9,0.5],
+{"reference color baseColor": ["myShader:Cout"],
 "float metallic":[1.0],
 "float specular": [0.5],
 "float roughness": [0.1],
@@ -112,7 +114,7 @@ ri.AttributeBegin()
 ri.TransformBegin()
 
 ri.Bxdf("PxrDisney","forFrame1",
-{"color baseColor": [0.9,0.9,0.5],
+{"reference color baseColor": ["myShader:Cout"],
 "float metallic":[1.0],
 "float specular": [0.5],
 "float roughness": [0.1],
@@ -134,7 +136,7 @@ ri.AttributeBegin()
 ri.TransformBegin()
 
 ri.Bxdf("PxrDisney","forCone",
-{"color baseColor": [0.9,0.9,0.5],
+{"reference color baseColor": ["myShader:Cout"],
 "float metallic":[1.0],
 "float specular": [0.5],
 "float roughness": [0.1],
@@ -157,7 +159,7 @@ ri.TransformEnd()
 ri.AttributeEnd()
 
 #----------------------
-#Patch for Table Surface
+#Patch for Table Surfacegit@github.com:RaykoEZ/RIB_stuff.git
 ri.AttributeBegin()
 ri.TransformBegin()
 

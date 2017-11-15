@@ -2,10 +2,53 @@ OpenShadingLanguage 1.00
 # Compiled by oslc 1.7.4.pixar38bde12
 # options: 
 shader first
-param	color	Cin	0 0 0		%read{0,0} %write{2147483647,-1}
-oparam	color	Cout	0 0 0		%read{2147483647,-1} %write{0,0}
+param	color	Cin	0 0 0		%read{13,13} %write{2147483647,-1}
+oparam	color	Cout	0 0 0		%read{2147483647,-1} %write{13,13}
+global	point	P	%read{5,5} %write{2147483647,-1}
+local	float	freq	%read{4,12} %write{0,12}
+local	float	fuzz	%read{4,13} %write{1,12}
+local	int	___305_i	%read{4,12} %write{3,12}
+const	float	$const1	0.89999998		%read{0,0} %write{2147483647,-1}
+const	float	$const2	0.30000001		%read{1,1} %write{2147483647,-1}
+const	int	$const3	0		%read{3,3} %write{2147483647,-1}
+const	int	$const4	15		%read{4,4} %write{2147483647,-1}
+temp	int	$tmp1	%read{2,12} %write{3,12}
+const	float	$const5	0.80000001		%read{9,9} %write{2147483647,-1}
+temp	float	$tmp2	%read{4,12} %write{4,12}
+temp	float	$tmp3	%read{4,12} %write{4,12}
+const	string	$const6	"perlin"		%read{6,6} %write{2147483647,-1}
+temp	point	$tmp4	%read{4,12} %write{4,12}
+temp	float	$tmp5	%read{4,12} %write{4,12}
+temp	float	$tmp6	%read{4,12} %write{4,12}
+const	float	$const7	2.0999999		%read{11,11} %write{2147483647,-1}
+const	int	$const8	1		%read{12,12} %write{2147483647,-1}
 code ___main___
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\first.osl:7
-# 	}
-	assign		Cout Cin 	%filename{"C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\first.osl"} %line{7} %argrw{"wr"}
+# first.osl:7
+# 		float freq =0.9;
+	assign		freq $const1 	%filename{"first.osl"} %line{7} %argrw{"wr"}
+# first.osl:8
+# 		float fuzz=.3;
+	assign		fuzz $const2 	%line{8} %argrw{"wr"}
+# first.osl:9
+# 		for(int i=0;i<=15;++i)
+	for		$tmp1 4 5 12 13 	%line{9} %argrw{"r"}
+	assign		___305_i $const3 	%argrw{"wr"}
+	le		$tmp1 ___305_i $const4 	%argrw{"wrr"}
+# first.osl:11
+# 			fuzz+=0.8*(float)(abs(noise("perlin",P*freq))/freq);
+	mul		$tmp4 P freq 	%line{11} %argrw{"wrr"}
+	noise		$tmp3 $const6 $tmp4 	%argrw{"wrr"}
+	abs		$tmp2 $tmp3 	%argrw{"wr"}
+	div		$tmp5 $tmp2 freq 	%argrw{"wrr"}
+	mul		$tmp6 $const5 $tmp5 	%argrw{"wrr"}
+	add		fuzz fuzz $tmp6 	%argrw{"wrr"}
+# first.osl:12
+# 			freq*=2.1;
+	mul		freq freq $const7 	%line{12} %argrw{"wrr"}
+# first.osl:9
+# 		for(int i=0;i<=15;++i)
+	add		___305_i ___305_i $const8 	%line{9} %argrw{"wrr"}
+# first.osl:14
+# 		Cout=Cin*fuzz;
+	mul		Cout Cin fuzz 	%line{14} %argrw{"wrr"}
 	end

@@ -3,5 +3,14 @@ shader first(
 output	color Cout = 0
 	)
 	{
-	Cout=Cin;
+//Higher freq, more noise patches.
+		float freq =0.9;
+		float fuzz=.3;
+		for(int i=0;i<=15;++i)
+		{
+			fuzz+=0.8*(float)(abs(noise("perlin",P*freq))/freq);
+			freq*=2.1;
+		}
+		Cout=Cin*fuzz;
+		
 	}
