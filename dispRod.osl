@@ -1,0 +1,12 @@
+shader dispRod(
+							float repeat=1,
+							float fuzz=0.2,
+							float edgeSize=0.1,
+							output	color resultRGB=0,
+							output float resultF=0
+						)
+{
+
+
+
+}

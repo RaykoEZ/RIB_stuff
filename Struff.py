@@ -18,7 +18,7 @@ ri.Projection(ri.PERSPECTIVE, {ri.FOV: 45}) # standard Ri tokens are available
 ri.Translate(0,0,8)
 ri.Rotate(-90,0,0,1)
 ri.Rotate(60,0,1,0)
-#ri.Rotate(90,0,1,0)
+#ri.Rotate(80,0,1,0)
 #ri.Rotate(90,1,0,0)
 
 ri.WorldBegin()
@@ -29,6 +29,10 @@ ri.AttributeBegin()
 ri.TransformBegin()
 ri.Rotate(180,1,0,0)
 #ri.Rotate(180,0,1,0)
+
+#vvv----reference----vvv
+
+#http://www.thebelgianvfxguy.com/2013/02/ibl-and-environment-maps-for-cgi.html 
 
 ri.Light("PxrDomeLight","myLight",{"float exposure":[-1],"string lightColorMap": ["room.tx"]})
 
@@ -42,7 +46,7 @@ ri.AttributeBegin()
 ri.TransformBegin()
 
 
-ri.Translate(0,0,-0.5)
+ri.Translate(0,0,-0.3)
 
 #Lens Frame
 ri.TransformBegin()
@@ -68,10 +72,13 @@ ri.TransformEnd()
 ri.TransformBegin()
 ri.AttributeBegin()
 
-ri.Bxdf("PxrGlass","Len1",
+ri.Pattern("PxrTexture","lensTex",{"string filename":["room.tx"]})
+
+ri.Bxdf("PxrGlass","Lens1",
 {"float ior":1.47,
 "color transmissionColor": [1,1,1],
-"color reflectionColor": [1,1,1]
+"reference color reflectionColor": ["lensTex:resultRGB"],
+"float absorptionGain":[0.7]
 })
 
 
@@ -88,7 +95,13 @@ ri.TransformEnd()
 #Handle----------------------------------------------------------------------------
 
 ri.AttributeBegin()
+
 ri.TransformBegin()
+
+
+#ri.Attribute("displacementbound",  {"float sphere" : [10], "string coordinatesystem" : ["shader"]})
+#ri.Pattern("dispRod", "rodTx")
+#ri.Displace("PxrDisplace", "myRodDisp",{"float dispAmount": [ 0.7 ],"reference float dispScalar": [ "rodTx:resultF" ]})
 
 ri.Bxdf("PxrDisney","forHandle",
 {"reference color baseColor": ["myShader:Cout"],
@@ -98,20 +111,26 @@ ri.Bxdf("PxrDisney","forHandle",
 "float clearcoat":[0.5]
 })
 
+
+
+
+
 ri.Rotate(45,0,0,1)
 ri.Rotate(90,0,1,0)
 ri.Translate(-0.69,0,-1.78)
 ri.Scale(0.6,0.6,8.0)
 
-
-
-
 ri.Cylinder(0.15,0.35,0.6,360)
+
 ri.TransformEnd()
 
 #Handle to frame----------------------------------
 ri.AttributeBegin()
 ri.TransformBegin()
+
+ri.Attribute("displacementbound",  {"float sphere" : [0.1], "string coordinatesystem" : ["shader"]})
+ri.Pattern("dispHandle", "diskTx")
+ri.Displace("PxrDisplace", "myDisp",{"float dispAmount": [ 0.5 ],"reference float dispScalar": [ "diskTx:resultF" ]})
 
 ri.Bxdf("PxrDisney","forFrame1",
 {"reference color baseColor": ["myShader:Cout"],
@@ -122,9 +141,9 @@ ri.Bxdf("PxrDisney","forFrame1",
 })
 
 ri.Scale(0.7,0.3,0.5)
-#ri.Rotate(0,0,0,1)
+ri.Rotate(2,0,0,1)
 
-ri.Translate(0,2.0,1.4)
+ri.Translate(0,2.05,1.5)
 
 ri.Torus(1,0.25,90,-90, 45 )
 

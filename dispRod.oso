@@ -1,0 +1,43 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.7.4.pixar38bde12
+# options: 
+shader dispRod
+param	float	repeat	1		%read{2147483647,-1} %write{2147483647,-1}
+param	float	fuzz	0.2		%read{2147483647,-1} %write{2147483647,-1}
+param	float	edgeSize	0.1		%read{2147483647,-1} %write{2147483647,-1}
+oparam	color	resultRGB	0 0 0		%read{2147483647,-1} %write{2147483647,-1}
+oparam	float	resultF	0		%read{2147483647,-1} %write{12,12}
+global	point	P	%read{0,9} %write{2147483647,-1}
+global	normal	N	%read{10,10} %write{2147483647,-1}
+const	int	$const1	0		%read{0,9} %write{2147483647,-1}
+temp	float	$tmp1	%read{1,1} %write{0,0}
+const	float	$const2	0.5		%read{1,1} %write{2147483647,-1}
+temp	int	$tmp2	%read{2,2} %write{1,1}
+temp	int	$tmp3	%read{3,8} %write{2,7}
+temp	float	$tmp4	%read{5,5} %write{4,4}
+const	float	$const3	0.80000001		%read{5,5} %write{2147483647,-1}
+temp	int	$tmp5	%read{6,6} %write{5,5}
+temp	int	$tmp6	%read{7,7} %write{6,6}
+const	float	$const4	-0.2		%read{12,12} %write{2147483647,-1}
+temp	float	$tmp7	%read{12,12} %write{11,11}
+temp	float	$tmp8	%read{10,10} %write{9,9}
+temp	normal	$tmp9	%read{11,11} %write{10,10}
+code ___main___
+# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\dispRod.osl:11
+#   
+	compref		$tmp1 P $const1 	%filename{"C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\dispRod.osl"} %line{11} %argrw{"wrr"}
+	lt		$tmp2 $tmp1 $const2 	%argrw{"wrr"}
+	neq		$tmp3 $tmp2 $const1 	%argrw{"wrr"}
+	if		$tmp3 4 8 	%argrw{"r"}
+	compref		$tmp4 P $const1 	%argrw{"wrr"}
+	gt		$tmp5 $tmp4 $const3 	%argrw{"wrr"}
+	neq		$tmp6 $tmp5 $const1 	%argrw{"wrr"}
+	assign		$tmp3 $tmp6 	%argrw{"wr"}
+	if		$tmp3 13 13 	%argrw{"r"}
+# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\dispRod.osl:13
+# 
+	compref		$tmp8 P $const1 	%line{13} %argrw{"wrr"}
+	mul		$tmp9 N $tmp8 	%argrw{"wrr"}
+	length		$tmp7 $tmp9 	%argrw{"wr"}
+	mul		resultF $const4 $tmp7 	%argrw{"wrr"}
+	end
