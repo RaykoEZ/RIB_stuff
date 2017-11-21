@@ -6,6 +6,9 @@
 
 #  # this is where prman.py lives
 #python
+
+
+
 import prman
 ri = prman.Ri() # create an instance of the RenderMan interface
 rendertarget = "SeriousStruff.rib"
@@ -99,9 +102,9 @@ ri.AttributeBegin()
 ri.TransformBegin()
 
 
-#ri.Attribute("displacementbound",  {"float sphere" : [10], "string coordinatesystem" : ["shader"]})
-#ri.Pattern("dispRod", "rodTx")
-#ri.Displace("PxrDisplace", "myRodDisp",{"float dispAmount": [ 0.7 ],"reference float dispScalar": [ "rodTx:resultF" ]})
+ri.Attribute("displacementbound",  {"float sphere" : [10], "string coordinatesystem" : ["shader"]})
+ri.Pattern("dispRod", "rodTx")
+ri.Displace("PxrDisplace", "myRodDisp",{"float dispAmount": [ 0.7 ],"reference float dispScalar": [ "rodTx:resultF" ]})
 
 ri.Bxdf("PxrDisney","forHandle",
 {"reference color baseColor": ["myShader:Cout"],

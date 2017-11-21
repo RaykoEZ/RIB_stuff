@@ -36,6 +36,9 @@ AttributeEnd
 TransformEnd 
 AttributeBegin 
 TransformBegin 
+Attribute "displacementbound" "string coordinatesystem" ["shader"] "float sphere" [10]
+Pattern "dispRod" "rodTx" 
+Displace "PxrDisplace" "myRodDisp" "reference float dispScalar" ["rodTx:resultF"] "float dispAmount" [0.7]
 Bxdf "PxrDisney" "forHandle" "float metallic" [1] "float clearcoat" [0.5] "reference color baseColor" ["myShader:Cout"] "float roughness" [0.1] "float specular" [0.5]
 Rotate 45 0 0 1
 Rotate 90 0 1 0

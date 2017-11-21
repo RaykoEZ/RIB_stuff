@@ -1,12 +1,13 @@
 shader dispRod(
-							float repeat=1,
-							float fuzz=0.2,
-							float edgeSize=0.1,
-							output	color resultRGB=0,
+
 							output float resultF=0
 						)
 {
+	float fuzz=0.02;
+	float dist;
+    float inDisk;
 
-
-
+	dist=sqrt((v-0.02)*(v-0.02));
+    inDisk = (smoothstep(0.2-fuzz,0.2+fuzz,dist))*(1-smoothstep(0.2-fuzz,0.2+fuzz,dist));
+	resultF=-inDisk*0.2;
 }
