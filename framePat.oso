@@ -1,0 +1,40 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.7.4.pixar38bde12
+# options: 
+shader framePat
+param	float	depth	0		%read{5,5} %write{2147483647,-1}
+param	float	width	0		%read{2,3} %write{2147483647,-1}
+param	float	fuzz	0.02		%read{2,7} %write{2147483647,-1}
+param	float	where	0.5		%read{0,0} %write{2147483647,-1}
+param	float	repeatCount	8		%read{2147483647,-1} %write{2147483647,-1}
+oparam	float	resultF	0		%read{9,9} %write{5,9}
+global	float	v	%read{0,8} %write{2147483647,-1}
+local	float	dist	%read{4,4} %write{1,1}
+local	float	inDisk	%read{5,5} %write{4,4}
+temp	float	$tmp1	%read{1,1} %write{0,0}
+temp	float	$tmp2	%read{4,4} %write{2,2}
+temp	float	$tmp3	%read{4,4} %write{3,3}
+temp	float	$tmp4	%read{9,9} %write{8,8}
+const	float	$const1	0.5		%read{6,7} %write{2147483647,-1}
+temp	float	$tmp5	%read{8,8} %write{6,6}
+temp	float	$tmp6	%read{8,8} %write{7,7}
+code ___main___
+# framePat.osl:15
+# 	dist=abs(v-where);
+	sub		$tmp1 v where 	%filename{"framePat.osl"} %line{15} %argrw{"wrr"}
+	abs		dist $tmp1 	%argrw{"wr"}
+# framePat.osl:16
+#     inDisk =smoothstep(width-fuzz,width+fuzz,dist);
+	sub		$tmp2 width fuzz 	%line{16} %argrw{"wrr"}
+	add		$tmp3 width fuzz 	%argrw{"wrr"}
+	smoothstep	inDisk $tmp2 $tmp3 dist 	%argrw{"wrrr"}
+# framePat.osl:17
+# 	resultF=inDisk*depth;
+	mul		resultF inDisk depth 	%line{17} %argrw{"wrr"}
+# framePat.osl:18
+#     resultF*=(smoothstep(0.5-fuzz,0.5+fuzz,v));
+	sub		$tmp5 $const1 fuzz 	%line{18} %argrw{"wrr"}
+	add		$tmp6 $const1 fuzz 	%argrw{"wrr"}
+	smoothstep	$tmp4 $tmp5 $tmp6 v 	%argrw{"wrrr"}
+	mul		resultF resultF $tmp4 	%argrw{"wrr"}
+	end

@@ -1,13 +1,21 @@
 shader dispRod(
-
-							output float resultF=0
+	float depth=0,
+	float width=0,
+	float fuzz=0.02,
+	float where=0.5,
+	float repeatCount=8,
+	output float resultF=0
 						)
 {
-	float fuzz=0.02;
 	float dist;
     float inDisk;
 
-	dist=sqrt((v-0.02)*(v-0.02));
-    inDisk = (smoothstep(0.2-fuzz,0.2+fuzz,dist))*(1-smoothstep(0.2-fuzz,0.2+fuzz,dist));
-	resultF=-inDisk*0.2;
+	float vv = mod(repeatCount*v,1);
+	
+	dist=abs(vv-where);
+    inDisk =1-smoothstep(width-fuzz,width+fuzz,dist);
+	resultF=-inDisk*depth;
+
+	// displace at centre points 0.2 and 0.9 of the cylinder, rest of the cylinder is 0
+	resultF*=1-(smoothstep(0.2-fuzz,0.2+fuzz,v)-smoothstep(0.9-fuzz,0.9+fuzz,v));
 }

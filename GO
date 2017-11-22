@@ -1,0 +1,5 @@
+oslc dispRod.osl
+oslc dispHandle.osl
+oslc framePat.osl
+python Struff.py
+render SeriousStruff.rib

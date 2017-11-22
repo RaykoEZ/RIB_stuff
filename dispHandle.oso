@@ -2,73 +2,77 @@ OpenShadingLanguage 1.00
 # Compiled by oslc 1.7.4.pixar38bde12
 # options: 
 shader dispHandle
-param	color	C1	1 1 1		%read{18,18} %write{2147483647,-1}
-param	color	C2	0 0 0		%read{18,18} %write{2147483647,-1}
+param	color	C1	1 1 1		%read{20,20} %write{2147483647,-1}
+param	color	C2	0 0 0		%read{20,20} %write{2147483647,-1}
 param	float	repeat	1		%read{0,2} %write{2147483647,-1}
-param	float	fuzz	0.2		%read{11,12} %write{2147483647,-1}
-param	float	edgeSize	0.1		%read{4,12} %write{2147483647,-1}
-oparam	color	resultRGB	0 0 0		%read{2147483647,-1} %write{18,18}
-oparam	float	resultF	0		%read{2147483647,-1} %write{17,17}
-global	normal	N	%read{14,14} %write{2147483647,-1}
+param	float	fuzz	0.2		%read{13,14} %write{2147483647,-1}
+param	float	edgeSize	0.1		%read{4,14} %write{2147483647,-1}
+oparam	color	resultRGB	0 0 0		%read{2147483647,-1} %write{20,20}
+oparam	float	resultF	0		%read{2147483647,-1} %write{19,19}
+global	normal	N	%read{16,16} %write{2147483647,-1}
 global	float	u	%read{0,0} %write{2147483647,-1}
 global	float	v	%read{2,2} %write{2147483647,-1}
 local	float	uu	%read{4,6} %write{1,1}
 local	float	vv	%read{5,8} %write{3,3}
-local	float	blx	%read{2147483647,-1} %write{4,4}
-local	float	bly	%read{2147483647,-1} %write{5,5}
-local	float	trx	%read{10,10} %write{7,7}
-local	float	try	%read{10,10} %write{9,9}
-local	float	edge	%read{13,13} %write{10,10}
-local	float	fuzzEdge	%read{14,18} %write{13,13}
+local	float	blx	%read{10,10} %write{4,4}
+local	float	bly	%read{10,10} %write{5,5}
+local	float	trx	%read{11,11} %write{7,7}
+local	float	try	%read{12,12} %write{9,9}
+local	float	edge	%read{15,15} %write{12,12}
+local	float	fuzzEdge	%read{16,20} %write{15,15}
 temp	float	$tmp1	%read{1,1} %write{0,0}
 const	float	$const1	1		%read{1,8} %write{2147483647,-1}
 temp	float	$tmp2	%read{3,3} %write{2,2}
 temp	float	$tmp3	%read{7,7} %write{6,6}
 temp	float	$tmp4	%read{9,9} %write{8,8}
-temp	float	$tmp5	%read{13,13} %write{11,11}
-temp	float	$tmp6	%read{13,13} %write{12,12}
-temp	float	$tmp7	%read{16,16} %write{15,15}
-temp	normal	$tmp8	%read{15,15} %write{14,14}
-temp	float	$tmp9	%read{17,17} %write{16,16}
-const	float	$const3	0.07		%read{17,17} %write{2147483647,-1}
+temp	float	$tmp5	%read{11,11} %write{10,10}
+temp	float	$tmp6	%read{12,12} %write{11,11}
+temp	float	$tmp7	%read{15,15} %write{13,13}
+temp	float	$tmp8	%read{15,15} %write{14,14}
+temp	float	$tmp9	%read{18,18} %write{17,17}
+temp	normal	$tmp10	%read{17,17} %write{16,16}
+temp	float	$tmp11	%read{19,19} %write{18,18}
+const	float	$const3	0.07		%read{19,19} %write{2147483647,-1}
 code ___main___
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\dispHandle.osl:11
-#  float vv=fmod(v*repeat,1.0);
-	mul		$tmp1 u repeat 	%filename{"C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\dispHandle.osl"} %line{11} %argrw{"wrr"}
+# dispHandle.osl:10
+#  float uu=fmod(u*repeat,1.0);
+	mul		$tmp1 u repeat 	%filename{"dispHandle.osl"} %line{10} %argrw{"wrr"}
 	fmod		uu $tmp1 $const1 	%argrw{"wrr"}
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\dispHandle.osl:12
-#  
-	mul		$tmp2 v repeat 	%line{12} %argrw{"wrr"}
+# dispHandle.osl:11
+#  float vv=fmod(v*repeat,1.0);
+	mul		$tmp2 v repeat 	%line{11} %argrw{"wrr"}
 	fmod		vv $tmp2 $const1 	%argrw{"wrr"}
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\dispHandle.osl:15
+# dispHandle.osl:14
+#  float blx=step(edgeSize,uu);
+	step		blx edgeSize uu 	%line{14} %argrw{"wrr"}
+# dispHandle.osl:15
 #  float bly=step(edgeSize,vv);
-	step		blx edgeSize uu 	%line{15} %argrw{"wrr"}
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\dispHandle.osl:16
-#  
-	step		bly edgeSize vv 	%line{16} %argrw{"wrr"}
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\dispHandle.osl:18
-#  float try=step(edgeSize,1-vv);
-	sub		$tmp3 $const1 uu 	%line{18} %argrw{"wrr"}
+	step		bly edgeSize vv 	%line{15} %argrw{"wrr"}
+# dispHandle.osl:17
+#  float trx=step(edgeSize,1-uu);
+	sub		$tmp3 $const1 uu 	%line{17} %argrw{"wrr"}
 	step		trx edgeSize $tmp3 	%argrw{"wrr"}
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\dispHandle.osl:19
-#  float edge=trx * try;
-	sub		$tmp4 $const1 vv 	%line{19} %argrw{"wrr"}
+# dispHandle.osl:18
+#  float try=step(edgeSize,1-vv);
+	sub		$tmp4 $const1 vv 	%line{18} %argrw{"wrr"}
 	step		try edgeSize $tmp4 	%argrw{"wrr"}
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\dispHandle.osl:20
+# dispHandle.osl:19
+#  float edge=blx * bly * trx * try;
+	mul		$tmp5 blx bly 	%line{19} %argrw{"wrr"}
+	mul		$tmp6 $tmp5 trx 	%argrw{"wrr"}
+	mul		edge $tmp6 try 	%argrw{"wrr"}
+# dispHandle.osl:20
 #  float fuzzEdge=smoothstep(edgeSize-fuzz,edgeSize+fuzz,edge);
-	mul		edge trx try 	%line{20} %argrw{"wrr"}
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\dispHandle.osl:21
-#  
-	sub		$tmp5 edgeSize fuzz 	%line{21} %argrw{"wrr"}
-	add		$tmp6 edgeSize fuzz 	%argrw{"wrr"}
-	smoothstep	fuzzEdge $tmp5 $tmp6 edge 	%argrw{"wrrr"}
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\dispHandle.osl:23
+	sub		$tmp7 edgeSize fuzz 	%line{20} %argrw{"wrr"}
+	add		$tmp8 edgeSize fuzz 	%argrw{"wrr"}
+	smoothstep	fuzzEdge $tmp7 $tmp8 edge 	%argrw{"wrrr"}
+# dispHandle.osl:22
+#  resultF=-length(N*fuzzEdge)*0.07;
+	mul		$tmp10 N fuzzEdge 	%line{22} %argrw{"wrr"}
+	length		$tmp9 $tmp10 	%argrw{"wr"}
+	neg		$tmp11 $tmp9 	%argrw{"wr"}
+	mul		resultF $tmp11 $const3 	%argrw{"wrr"}
+# dispHandle.osl:23
 #  resultRGB=mix(C1,C2,fuzzEdge);
-	mul		$tmp8 N fuzzEdge 	%line{23} %argrw{"wrr"}
-	length		$tmp7 $tmp8 	%argrw{"wr"}
-	neg		$tmp9 $tmp7 	%argrw{"wr"}
-	mul		resultF $tmp9 $const3 	%argrw{"wrr"}
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\dispHandle.osl:24
-# 
-	mix		resultRGB C1 C2 fuzzEdge 	%line{24} %argrw{"wrrr"}
+	mix		resultRGB C1 C2 fuzzEdge 	%line{23} %argrw{"wrrr"}
 	end
