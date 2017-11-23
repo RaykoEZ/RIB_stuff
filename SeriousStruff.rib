@@ -3,7 +3,7 @@ version 3.04
 Display "SeriousStruff.exr" "it" "rgba" 
 Hider "raytrace" "int incremental" [1] "int minsamples" [4] "int maxsamples" [128]
 Integrator "PxrPathTracer" "MyIntegrator" "int numLightSamples" [4] "int numBxdfSamples" [4] "int numIndirectSamples" [1]
-Format 512 512 1
+Format 720 720 1
 Projection "perspective" "uniform float fov" [45]
 Translate 0 0 8
 Rotate -90 0 0 1
@@ -23,7 +23,7 @@ TransformBegin
 AttributeBegin 
 Bxdf "PxrDisney" "forFrame" "float metallic" [1] "float clearcoat" [0.5] "reference color baseColor" ["myShader:Cout"] "float roughness" [0.3] "float specular" [0.5]
 Attribute "displacementbound" "string coordinatesystem" ["shader"] "float sphere" [1]
-Pattern "framePat" "frame" "float where" [0.5] "float width" [0.07] "float depth" [0.03] "float fuzz" [0.03]
+Pattern "framePat" "frame" "float where" [0.5] "float width" [0.07] "float depth" [0.025] "float fuzz" [0.03]
 Displace "PxrDisplace" "myFrameDisp" "reference float dispScalar" ["frame:resultF"] "float dispAmount" [0.7]
 Cylinder 1 0.6 0.8 360 
 AttributeEnd 

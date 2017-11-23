@@ -3,17 +3,19 @@ shader framePat(
 	float width=0,
 	float fuzz=0.02,
 	float where=0.5,
-	float repeatCount=8,
+	float repeatCount=3,
 	output float resultF=0
 						)
 {
 	float dist;
     float inDisk;
 
-	
-	
-	dist=abs(v-where);
+	float vv = mod(repeatCount*v,1);
+	float uu = mod(45*repeatCount*u,1);
+
+	dist=abs(vv*uu-where);
     inDisk =smoothstep(width-fuzz,width+fuzz,dist);
 	resultF=inDisk*depth;
-    resultF*=(smoothstep(0.5-fuzz,0.5+fuzz,v));
+    resultF*=(1-(smoothstep(0.5-fuzz,0.5+fuzz,u)-smoothstep(0.15-fuzz,0.15+fuzz,v)));
+	
 }
