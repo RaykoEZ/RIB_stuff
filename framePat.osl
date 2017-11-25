@@ -15,6 +15,7 @@ shader framePat(
 
 	dist=abs(vv*uu-where);
     inDisk =smoothstep(width-fuzz,width+fuzz,dist);
+	// For Cross Dents: inDisk =smoothstep(width-fuzz,width+fuzz,dist)*(1/smoothstep(width-fuzz,width+fuzz,dist));
 	resultF=inDisk*depth;
     resultF*=(1-(smoothstep(0.5-fuzz,0.5+fuzz,u)-smoothstep(0.15-fuzz,0.15+fuzz,v)));
 	

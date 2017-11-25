@@ -22,27 +22,6 @@ shader dispRod(
 
 	resultF=-inStrip*depth;
 	// displace at centre points 0.2 and 0.9 of the cylinder, rest of the cylinder is 0
-	resultF*=1-(smoothstep(0.2-fuzz,0.2+fuzz,v)-smoothstep(0.9-fuzz,0.9+fuzz,v));
-	
-	
+	resultF*=1-(smoothstep(0.2-fuzz,0.2+fuzz,v)-smoothstep(0.9-fuzz,0.9+fuzz,v));	
 }
 
-
-float drawCross()
-{
-	float depth=0.05;
-	float width=0.03;
-	float fuzz=0.02;
-	float where=0.5;
-	float repeatCount=3;
-	float vv = mod(repeatCount*v,1);
-	float uu = mod(45*repeatCount*u,1);
-
-	float dist;
-    float inStrip;
-	
-	dist=abs(vv*uu-where);
-    inDisk =smoothstep(width-fuzz,width+fuzz,dist);
-	resultF=inDisk*depth;
-	resultF*=
-}
