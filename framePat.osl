@@ -10,13 +10,32 @@ shader framePat(
 	float dist;
     float inDisk;
 
-	float vv = mod(repeatCount*v,1);
+	float vv = mod(2*v,1);
 	float uu = mod(45*repeatCount*u,1);
 
 	dist=abs(vv*uu-where);
     inDisk =smoothstep(width-fuzz,width+fuzz,dist);
-	// For Cross Dents: inDisk =smoothstep(width-fuzz,width+fuzz,dist)*(1/smoothstep(width-fuzz,width+fuzz,dist));
+	//inDisk =smoothstep(width-fuzz,width+fuzz,dist)*(1/smoothstep(width-fuzz,width+fuzz,dist));
 	resultF=inDisk*depth;
-    resultF*=(1-(smoothstep(0.5-fuzz,0.5+fuzz,u)-smoothstep(0.15-fuzz,0.15+fuzz,v)));
+    float ridges = resultF*(1-(smoothstep(0.5-fuzz,0.5+fuzz,u)-smoothstep(0.15-fuzz,0.15+fuzz,v)));
 	
+
+	
+	float dist2;
+    float inStrip;
+
+	float vv2 = mod(repeatCount*v,1);
+
+
+	dist2=abs(vv2-where);
+
+	
+
+    inStrip =smoothstep(2*width-fuzz,2*width+fuzz,dist2);
+
+	resultF=inStrip*0.7*depth;
+	float bands=resultF*((smoothstep(0.5-fuzz,0.5+fuzz,v)));	
+
+
+	resultF=ridges+bands;
 }

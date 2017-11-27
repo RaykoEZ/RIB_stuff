@@ -14,7 +14,7 @@ ri = prman.Ri() # create an instance of the RenderMan interface
 
 #shader call for handle indents
 def indentRod(depth,width,fuzz,where):
-    ri.Attribute("displacementbound",  {"float sphere" : [1], "string coordinatesystem" : ["shader"]})
+    ri.Attribute("displacementbound",  {"float sphere" : [0.01], "string coordinatesystem" : ["shader"]})
     ri.Pattern("dispRod", "rodIndent",
     {
         "float depth": depth,
@@ -26,7 +26,7 @@ def indentRod(depth,width,fuzz,where):
     return
 
 def framePattern(depth,width,fuzz,where):
-    ri.Attribute("displacementbound",  {"float sphere" : [1], "string coordinatesystem" : ["shader"]})
+    ri.Attribute("displacementbound",  {"float sphere" : [0.001], "string coordinatesystem" : ["shader"]})
     ri.Pattern("framePat", "frame",
     {
         "float depth": depth,
@@ -42,7 +42,7 @@ def framePattern(depth,width,fuzz,where):
 rendertarget = "SeriousStruff.rib"
 ri.Begin(rendertarget)  # set rendertarget to ri.RENDER to render pixels
 ri.Display("SeriousStruff.exr", "it", "rgba")
-ri.Hider("raytrace",{"int incremental": [1],"int maxsamples": [128],"int minsamples":[4]})
+ri.Hider("raytrace",{"int incremental": [1],"int maxsamples": [256],"int minsamples":[4]})
 ri.Integrator("PxrPathTracer","MyIntegrator",{"int numLightSamples":[4],"int numBxdfSamples": [4],"int numIndirectSamples": [1]})
 ri.Format(720,720,1)
 ri.Projection(ri.PERSPECTIVE, {ri.FOV: 45}) # standard Ri tokens are available
@@ -92,7 +92,7 @@ ri.Bxdf("PxrDisney","forFrame",
 })
 
 #framePattern(depth,width,fuzz,where):
-framePattern(0.025,0.07,0.03,0.5)
+framePattern(0.02,0.06,0.03,0.5)
 
 
 
@@ -126,6 +126,27 @@ ri.TransformEnd()
 
 
 #Handle----------------------------------------------------------------------------
+#cone at the end of handle
+ri.AttributeBegin()
+ri.TransformBegin()
+
+ri.Bxdf("PxrDisney","forCone",
+{"reference color baseColor": ["myShader:Cout"],
+"float metallic":[1.0],
+"float specular": [0.5],
+"float roughness": [0.1],
+"float clearcoat":[0.5]
+})
+
+ri.Translate(2.14,2.14,0.69)
+ri.Rotate(90, 0,1,0)
+ri.Rotate(-45,1,0,0)
+ri.Scale(0.6,0.6,0.6)
+
+ri.Cone(0.09,0.15,360)
+
+ri.TransformEnd()
+ri.AttributeEnd()
 
 ri.AttributeBegin()
 
@@ -137,7 +158,7 @@ ri.TransformBegin()
 #ri.Displace("PxrDisplace", "myRodDisp",{"float dispAmount": [ 0.7 ],"reference float dispScalar": [ "rodTx:resultF" ]})
 #  vvv  replaced by function call  vvv
 #indentRod(depth,width,fuzz,where):
-indentRod(0.03,0.02,0.01,0.6)
+indentRod(0.035,0.03,0.02,0.6)
 
 
 ri.Bxdf("PxrDisney","forHandle",
@@ -161,7 +182,7 @@ ri.TransformEnd()
 ri.AttributeBegin()
 ri.TransformBegin()
 
-ri.Attribute("displacementbound",  {"float sphere" : [0.1], "string coordinatesystem" : ["shader"]})
+ri.Attribute("displacementbound",  {"float sphere" : [0.001], "string coordinatesystem" : ["shader"]})
 ri.Pattern("dispHandle", "diskTx")
 ri.Displace("PxrDisplace", "myDisp",{"float dispAmount": [ 0.5 ],"reference float dispScalar": [ "diskTx:resultF" ]})
 
@@ -183,27 +204,7 @@ ri.Torus(1,0.25,90,-90, 50 )
 ri.TransformEnd()
 ri.AttributeEnd()
 #----------------------------------------------
-#cone at the end of handle
-ri.AttributeBegin()
-ri.TransformBegin()
 
-ri.Bxdf("PxrDisney","forCone",
-{"reference color baseColor": ["myShader:Cout"],
-"float metallic":[1.0],
-"float specular": [0.5],
-"float roughness": [0.1],
-"float clearcoat":[0.5]
-})
-
-ri.Translate(2.14,2.14,0.69)
-ri.Rotate(90, 0,1,0)
-ri.Rotate(-45,1,0,0)
-ri.Scale(0.6,0.6,0.6)
-
-ri.Cone(0.09,0.15,360)
-
-ri.TransformEnd()
-ri.AttributeEnd()
 
 ri.AttributeEnd()
 

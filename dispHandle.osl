@@ -7,6 +7,7 @@ shader dispHandle ( color C1 = 1,
               output float resultF=0
             )
 {
+ 
  float uu=fmod(u*repeat,1.0);
  float vv=fmod(v*repeat,1.0);
  
@@ -21,6 +22,8 @@ shader dispHandle ( color C1 = 1,
  
  resultF=-length(N*fuzzEdge)*0.07;
  resultRGB=mix(C1,C2,fuzzEdge);
+
+
 
 
 }
