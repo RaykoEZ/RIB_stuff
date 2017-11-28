@@ -13,7 +13,7 @@ shader framePat(
 	float vv = mod(2*v,1);
 	float uu = mod(45*repeatCount*u,1);
 
-	dist=abs(vv*uu-where);
+	dist=abs(2*vv*uu-where);
     inDisk =smoothstep(width-fuzz,width+fuzz,dist);
 	//inDisk =smoothstep(width-fuzz,width+fuzz,dist)*(1/smoothstep(width-fuzz,width+fuzz,dist));
 	resultF=inDisk*depth;
@@ -31,11 +31,11 @@ shader framePat(
 
 	
 
-    inStrip =smoothstep(2*width-fuzz,2*width+fuzz,dist2);
+    inStrip =smoothstep(2.5*width-fuzz,2.5*width+fuzz,dist2);
 
 	resultF=inStrip*0.7*depth;
 	float bands=resultF*((smoothstep(0.5-fuzz,0.5+fuzz,v)));	
 
 
-	resultF=ridges+bands;
+	resultF=bands+ridges;
 }

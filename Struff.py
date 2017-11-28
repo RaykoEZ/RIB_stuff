@@ -43,7 +43,8 @@ rendertarget = "SeriousStruff.rib"
 ri.Begin(rendertarget)  # set rendertarget to ri.RENDER to render pixels
 ri.Display("SeriousStruff.exr", "it", "rgba")
 ri.Hider("raytrace",{"int incremental": [1],"int maxsamples": [256],"int minsamples":[4]})
-ri.Integrator("PxrPathTracer","MyIntegrator",{"int numLightSamples":[4],"int numBxdfSamples": [4],"int numIndirectSamples": [1]})
+#ri.Integrator("PxrPathTracer","MyIntegrator",{"int numLightSamples":[4],"int numBxdfSamples": [4],"int numIndirectSamples": [1]})
+ri.Integrator("PxrVCM","MyIntegrator",{"int numLightSamples":[256],"int numBxdfSamples":[256]})
 ri.Format(720,720,1)
 ri.Projection(ri.PERSPECTIVE, {ri.FOV: 45}) # standard Ri tokens are available
 ri.Translate(0,0,8)
@@ -92,7 +93,7 @@ ri.Bxdf("PxrDisney","forFrame",
 })
 
 #framePattern(depth,width,fuzz,where):
-framePattern(0.02,0.06,0.03,0.5)
+framePattern(0.02,0.05,0.03,0.5)
 
 
 
@@ -107,11 +108,11 @@ ri.AttributeBegin()
 
 ri.Pattern("PxrTexture","lensTex",{"string filename":["room.tx"]})
 
-ri.Bxdf("PxrGlass","Lens1",
-{"float ior":1.47,
+ri.Bxdf("PxrLMGlass","Lens1",
+{"float eta":1.47,
 "color transmissionColor": [1,1,1],
-"reference color reflectionColor": ["lensTex:resultRGB"],
-"float absorptionGain":[0.7]
+"reference color reflectionColor": ["lensTex:resultRGB"]
+#"float absorptionGain":[0.7]
 })
 
 
@@ -195,9 +196,9 @@ ri.Bxdf("PxrDisney","forFrame1",
 })
 
 ri.Scale(0.7,0.3,0.5)
-ri.Rotate(-5,0,0,1)
+ri.Rotate(-6,0,0,1)
 
-ri.Translate(-0.2,2.1,1.5)
+ri.Translate(-0.2,2,1.5)
 
 ri.Torus(1,0.25,90,-90, 50 )
 

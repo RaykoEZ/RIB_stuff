@@ -39,22 +39,26 @@ shader dispRod(
     float bumps=resultF*((smoothstep(0.25-fuzz,0.3+fuzz,v)-smoothstep(0.9-fuzz,0.95+fuzz,v)));
 	
 	
-/*
-	
 	float dist3;
-    float inLattice;
+    float inLat1;
 
-	float vv3 = mod(10*repeatCount*v,1);
-	float uu3 = mod(10*repeatCount*u,1);
+	float vv3 = mod(20*repeatCount*v,1);
 
-	dist3=abs(vv3*uu3-3*where);
-	inLattice =(linearstep(width-(fuzz),width+(fuzz),dist2));
-	resultF=-inLattice*depth;
 
-	float lattice = resultF*(1-(smoothstep(0.3-fuzz,0.35+fuzz,v)-smoothstep(0.85-fuzz,0.9+fuzz,v)));
+	dist3=abs(vv3-where);
+
 	
-*/
-	resultF=bands+bumps;
+
+    inLat1 =1-smoothstep(width-2*fuzz,width+fuzz,dist);
+
+
+	resultF=-inStrip*depth;
+
+	float lattice1=resultF*((smoothstep(0.3-fuzz,0.5+fuzz,v)-smoothstep(0.75-fuzz,0.85+fuzz,v)));	
+
+
+
+	resultF=bands+bumps+lattice1;
 }
 
 
