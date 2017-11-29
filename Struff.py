@@ -49,8 +49,8 @@ ri.Format(720,720,1)
 ri.Projection(ri.PERSPECTIVE, {ri.FOV: 45}) # standard Ri tokens are available
 ri.Translate(0,0,8)
 ri.Rotate(-90,0,0,1)
-ri.Rotate(60,0,1,0)
-#ri.Rotate(80,0,1,0)
+#ri.Rotate(60,0,1,0)
+ri.Rotate(70,0,1,0)
 #ri.Rotate(90,1,0,0)
 
 ri.WorldBegin()
@@ -111,7 +111,7 @@ ri.Pattern("PxrTexture","lensTex",{"string filename":["room.tx"]})
 ri.Bxdf("PxrLMGlass","Lens1",
 {
 "int thin": [1],
-"float eta":[1.55],
+"float eta":[1.95],
 "color transmissionColor": [1,1,1],
 "reference color reflectionColor": ["lensTex:resultRGB"]
 #"float absorptionGain":[0.7]
@@ -200,7 +200,7 @@ ri.Bxdf("PxrDisney","forFrame1",
 ri.Scale(0.7,0.3,0.5)
 ri.Rotate(-6,0,0,1)
 
-ri.Translate(-0.2,2,1.5)
+ri.Translate(-0.2,2,1.45)
 
 ri.Torus(1,0.25,90,-90, 50 )
 

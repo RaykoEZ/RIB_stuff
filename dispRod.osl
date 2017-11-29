@@ -25,7 +25,7 @@ shader dispRod(
 	// displace at centre points 0.2 and 0.9 of the cylinder, rest of the cylinder is 0
 	float bands=resultF*( 1-(smoothstep(0.2-fuzz,0.2+fuzz,v)-smoothstep(0.9-fuzz,0.9+fuzz,v)));	
 
-/*
+
 	float dist2;
     float inDisk;
 
@@ -38,27 +38,32 @@ shader dispRod(
 	resultF=inDisk*depth;
     float bumps=resultF*((smoothstep(0.25-fuzz,0.3+fuzz,v)-smoothstep(0.9-fuzz,0.95+fuzz,v)));
 	
-	
-	float dist3;
-    float inLat1;
-
-	float vv3 = mod(20*repeatCount*v,1);
+//----------------------------------------------------------------------------------------------------------------------------------	
 
 
-	dist3=abs(vv3-where);
+
+
+	//float dist3=abs(vv2+uu2-where);
 
 	
 
-    inLat1 =1-smoothstep(width-2*fuzz,width+fuzz,dist);
+    //float inLat1 =mix(1,0,dist3);
+
+	//resultF=-inLat1*depth;
+
+	float s1=mod(v*50+u*7,1);
+	float s2=mod(v*50-u*7,1);
+
+	float lattice=max(abs(0.5-s1),abs(0.5-s2))*0.05;
+
+	float latticeOut=resultF*((smoothstep(0.3-lattice,0.5+lattice,v)-smoothstep(0.75-lattice,0.80+lattice,v)));	
 
 
-	resultF=-inStrip*depth;
 
-	float lattice1=resultF*((smoothstep(0.3-fuzz,0.5+fuzz,v)-smoothstep(0.75-fuzz,0.85+fuzz,v)));	
+	resultF=bands+bumps+latticeOut;
+	
 
-*/
 
-	resultF=bands+bumps;
 }
 
 
