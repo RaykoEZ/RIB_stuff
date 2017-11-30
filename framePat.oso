@@ -2,100 +2,145 @@ OpenShadingLanguage 1.00
 # Compiled by oslc 1.7.4.pixar38bde12
 # options: 
 shader framePat
-param	float	depth	0		%read{25,25} %write{2147483647,-1}
-param	float	width	0		%read{16,21} %write{2147483647,-1}
-param	float	fuzz	0.02		%read{16,30} %write{2147483647,-1}
-param	float	where	0.5		%read{14,14} %write{2147483647,-1}
-param	float	repeatCount	3		%read{0,6} %write{2147483647,-1}
-oparam	float	resultF	0		%read{34,34} %write{25,34}
-global	float	u	%read{7,28} %write{2147483647,-1}
-global	float	v	%read{0,31} %write{2147483647,-1}
-local	float	dist	%read{18,22} %write{15,15}
-local	float	inDisk	%read{25,25} %write{24,24}
+param	float	depth	0		%read{20,44} %write{2147483647,-1}
+param	float	width	0		%read{17,40} %write{2147483647,-1}
+param	float	fuzz	0.02		%read{17,46} %write{2147483647,-1}
+param	float	where	0.5		%read{15,36} %write{2147483647,-1}
+param	float	repeatCount	3		%read{6,30} %write{2147483647,-1}
+oparam	float	resultF	0		%read{29,48} %write{20,49}
+global	float	u	%read{7,23} %write{2147483647,-1}
+global	float	v	%read{0,47} %write{2147483647,-1}
+local	float	dist	%read{19,19} %write{16,16}
+local	float	inDisk	%read{20,20} %write{19,19}
 local	float	vv	%read{13,13} %write{5,5}
-local	float	uu	%read{13,13} %write{12,12}
+local	float	uu	%read{14,14} %write{12,12}
+local	float	ridges	%read{49,49} %write{29,29}
+local	float	dist2	%read{42,42} %write{37,37}
+local	float	inStrip	%read{43,43} %write{42,42}
+local	float	vv2	%read{36,36} %write{35,35}
+local	float	bands	%read{49,49} %write{48,48}
 temp	float	$tmp1	%read{2,5} %write{0,0}
-const	float	$const2	1		%read{2,33} %write{2147483647,-1}
-const	string	$const3	"mod"		%read{1,8} %write{2147483647,-1}
+const	float	$const2	2		%read{0,13} %write{2147483647,-1}
+const	float	$const4	1		%read{2,34} %write{2147483647,-1}
+const	string	$const5	"mod"		%read{1,31} %write{2147483647,-1}
 temp	float	$tmp2	%read{4,4} %write{3,3}
 temp	float	$tmp3	%read{3,3} %write{2,2}
 temp	float	$tmp4	%read{5,5} %write{4,4}
 temp	float	$tmp5	%read{7,7} %write{6,6}
-const	float	$const5	45		%read{6,6} %write{2147483647,-1}
+const	float	$const7	45		%read{6,6} %write{2147483647,-1}
 temp	float	$tmp6	%read{9,12} %write{7,7}
 temp	float	$tmp7	%read{11,11} %write{10,10}
 temp	float	$tmp8	%read{10,10} %write{9,9}
 temp	float	$tmp9	%read{12,12} %write{11,11}
 temp	float	$tmp10	%read{14,14} %write{13,13}
 temp	float	$tmp11	%read{15,15} %write{14,14}
-temp	float	$tmp12	%read{19,19} %write{18,18}
-temp	float	$tmp13	%read{18,18} %write{16,16}
-temp	float	$tmp14	%read{18,18} %write{17,17}
-temp	float	$tmp15	%read{24,24} %write{19,19}
-temp	float	$tmp16	%read{23,23} %write{22,22}
-temp	float	$tmp17	%read{22,22} %write{20,20}
-temp	float	$tmp18	%read{22,22} %write{21,21}
-temp	float	$tmp19	%read{24,24} %write{23,23}
-temp	float	$tmp20	%read{32,32} %write{28,28}
-const	float	$const6	0.5		%read{26,27} %write{2147483647,-1}
-temp	float	$tmp21	%read{28,28} %write{26,26}
-temp	float	$tmp22	%read{28,28} %write{27,27}
-temp	float	$tmp23	%read{32,32} %write{31,31}
-const	float	$const7	0.15000001		%read{29,30} %write{2147483647,-1}
-temp	float	$tmp24	%read{31,31} %write{29,29}
-temp	float	$tmp25	%read{31,31} %write{30,30}
-temp	float	$tmp26	%read{33,33} %write{32,32}
-temp	float	$tmp27	%read{34,34} %write{33,33}
+temp	float	$tmp12	%read{16,16} %write{15,15}
+temp	float	$tmp13	%read{19,19} %write{17,17}
+temp	float	$tmp14	%read{19,19} %write{18,18}
+temp	float	$tmp15	%read{27,27} %write{23,23}
+const	float	$const8	0.5		%read{21,46} %write{2147483647,-1}
+temp	float	$tmp16	%read{23,23} %write{21,21}
+temp	float	$tmp17	%read{23,23} %write{22,22}
+temp	float	$tmp18	%read{27,27} %write{26,26}
+const	float	$const9	0.15000001		%read{24,25} %write{2147483647,-1}
+temp	float	$tmp19	%read{26,26} %write{24,24}
+temp	float	$tmp20	%read{26,26} %write{25,25}
+temp	float	$tmp21	%read{28,28} %write{27,27}
+temp	float	$tmp22	%read{29,29} %write{28,28}
+temp	float	$tmp23	%read{32,35} %write{30,30}
+temp	float	$tmp24	%read{34,34} %write{33,33}
+temp	float	$tmp25	%read{33,33} %write{32,32}
+temp	float	$tmp26	%read{35,35} %write{34,34}
+temp	float	$tmp27	%read{37,37} %write{36,36}
+const	float	$const10	2.5		%read{38,40} %write{2147483647,-1}
+temp	float	$tmp28	%read{39,39} %write{38,38}
+temp	float	$tmp29	%read{42,42} %write{39,39}
+temp	float	$tmp30	%read{41,41} %write{40,40}
+temp	float	$tmp31	%read{42,42} %write{41,41}
+const	float	$const11	0.69999999		%read{43,43} %write{2147483647,-1}
+temp	float	$tmp32	%read{44,44} %write{43,43}
+temp	float	$tmp33	%read{48,48} %write{47,47}
+temp	float	$tmp34	%read{47,47} %write{45,45}
+temp	float	$tmp35	%read{47,47} %write{46,46}
 code ___main___
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\framePat.osl:14
-# 	float uu = mod(45*repeatCount*u,1);
-	mul		$tmp1 repeatCount v 	%filename{"C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\framePat.osl"} %line{14} %argrw{"wrr"}
-	functioncall	$const3 6 	%argrw{"r"}
-# C:/Program Files\\Pixar\\RenderManProServer-21.5\\lib\\osl\\include\\stdosl.h:135
-# PERCOMP1 (ceil)
-	div		$tmp3 $tmp1 $const2 	%filename{"C:/Program Files\\Pixar\\RenderManProServer-21.5\\lib\\osl\\include\\stdosl.h"} %line{135} %argrw{"wrr"}
+# framePat.osl:13
+# 	float vv = mod(2*v,1);
+	mul		$tmp1 $const2 v 	%filename{"framePat.osl"} %line{13} %argrw{"wrr"}
+	functioncall	$const5 6 	%argrw{"r"}
+# /opt/pixar/RenderManProServer-21.4/lib/osl/include/stdosl.h:135
+# PERCOMP1 (round)
+	div		$tmp3 $tmp1 $const4 	%filename{"/opt/pixar/RenderManProServer-21.4/lib/osl/include/stdosl.h"} %line{135} %argrw{"wrr"}
 	floor		$tmp2 $tmp3 	%argrw{"wr"}
-	mul		$tmp4 $const2 $tmp2 	%argrw{"wrr"}
+	mul		$tmp4 $const4 $tmp2 	%argrw{"wrr"}
 	sub		vv $tmp1 $tmp4 	%argrw{"wrr"}
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\framePat.osl:15
-# 
-	mul		$tmp5 $const5 repeatCount 	%filename{"C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\framePat.osl"} %line{15} %argrw{"wrr"}
+# framePat.osl:14
+# 	float uu = mod(45*repeatCount*u,1);
+	mul		$tmp5 $const7 repeatCount 	%filename{"framePat.osl"} %line{14} %argrw{"wrr"}
 	mul		$tmp6 $tmp5 u 	%argrw{"wrr"}
-	functioncall	$const3 13 	%argrw{"r"}
-# C:/Program Files\\Pixar\\RenderManProServer-21.5\\lib\\osl\\include\\stdosl.h:135
-# PERCOMP1 (floor)
-	div		$tmp8 $tmp6 $const2 	%filename{"C:/Program Files\\Pixar\\RenderManProServer-21.5\\lib\\osl\\include\\stdosl.h"} %line{135} %argrw{"wrr"}
+	functioncall	$const5 13 	%argrw{"r"}
+# /opt/pixar/RenderManProServer-21.4/lib/osl/include/stdosl.h:135
+# PERCOMP1 (ceil)
+	div		$tmp8 $tmp6 $const4 	%filename{"/opt/pixar/RenderManProServer-21.4/lib/osl/include/stdosl.h"} %line{135} %argrw{"wrr"}
 	floor		$tmp7 $tmp8 	%argrw{"wr"}
-	mul		$tmp9 $const2 $tmp7 	%argrw{"wrr"}
+	mul		$tmp9 $const4 $tmp7 	%argrw{"wrr"}
 	sub		uu $tmp6 $tmp9 	%argrw{"wrr"}
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\framePat.osl:17
-#     inDisk =-smoothstep(width-fuzz,width+fuzz,dist)*(1/smoothstep(width-fuzz,width+fuzz,dist));
-	mul		$tmp10 vv uu 	%filename{"C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\framePat.osl"} %line{17} %argrw{"wrr"}
-	sub		$tmp11 $tmp10 where 	%argrw{"wrr"}
-	abs		dist $tmp11 	%argrw{"wr"}
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\framePat.osl:18
-# 	resultF=inDisk*depth;
-	sub		$tmp13 width fuzz 	%line{18} %argrw{"wrr"}
+# framePat.osl:16
+# 	dist=abs(2*vv*uu-where);
+	mul		$tmp10 $const2 vv 	%filename{"framePat.osl"} %line{16} %argrw{"wrr"}
+	mul		$tmp11 $tmp10 uu 	%argrw{"wrr"}
+	sub		$tmp12 $tmp11 where 	%argrw{"wrr"}
+	abs		dist $tmp12 	%argrw{"wr"}
+# framePat.osl:17
+#     inDisk =smoothstep(width-fuzz,width+fuzz,dist);
+	sub		$tmp13 width fuzz 	%line{17} %argrw{"wrr"}
 	add		$tmp14 width fuzz 	%argrw{"wrr"}
-	smoothstep	$tmp12 $tmp13 $tmp14 dist 	%argrw{"wrrr"}
-	neg		$tmp15 $tmp12 	%argrw{"wr"}
-	sub		$tmp17 width fuzz 	%argrw{"wrr"}
-	add		$tmp18 width fuzz 	%argrw{"wrr"}
-	smoothstep	$tmp16 $tmp17 $tmp18 dist 	%argrw{"wrrr"}
-	div		$tmp19 $const2 $tmp16 	%argrw{"wrr"}
-	mul		inDisk $tmp15 $tmp19 	%argrw{"wrr"}
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\framePat.osl:19
-#     resultF*=(1-(smoothstep(0.5-fuzz,0.5+fuzz,u)-smoothstep(0.15-fuzz,0.15+fuzz,v)));
+	smoothstep	inDisk $tmp13 $tmp14 dist 	%argrw{"wrrr"}
+# framePat.osl:19
+# 	resultF=inDisk*depth;
 	mul		resultF inDisk depth 	%line{19} %argrw{"wrr"}
-# C:\\Users\\Public\\PythonStuff\\ribs\\RIB_stuff\\.\\framePat.osl:20
-# 	
-	sub		$tmp21 $const6 fuzz 	%line{20} %argrw{"wrr"}
-	add		$tmp22 $const6 fuzz 	%argrw{"wrr"}
-	smoothstep	$tmp20 $tmp21 $tmp22 u 	%argrw{"wrrr"}
-	sub		$tmp24 $const7 fuzz 	%argrw{"wrr"}
-	add		$tmp25 $const7 fuzz 	%argrw{"wrr"}
-	smoothstep	$tmp23 $tmp24 $tmp25 v 	%argrw{"wrrr"}
-	sub		$tmp26 $tmp20 $tmp23 	%argrw{"wrr"}
-	sub		$tmp27 $const2 $tmp26 	%argrw{"wrr"}
-	mul		resultF resultF $tmp27 	%argrw{"wrr"}
+# framePat.osl:20
+#     float ridges = resultF*(1-(smoothstep(0.5-fuzz,0.5+fuzz,u)-smoothstep(0.15-fuzz,0.15+fuzz,v)));
+	sub		$tmp16 $const8 fuzz 	%line{20} %argrw{"wrr"}
+	add		$tmp17 $const8 fuzz 	%argrw{"wrr"}
+	smoothstep	$tmp15 $tmp16 $tmp17 u 	%argrw{"wrrr"}
+	sub		$tmp19 $const9 fuzz 	%argrw{"wrr"}
+	add		$tmp20 $const9 fuzz 	%argrw{"wrr"}
+	smoothstep	$tmp18 $tmp19 $tmp20 v 	%argrw{"wrrr"}
+	sub		$tmp21 $tmp15 $tmp18 	%argrw{"wrr"}
+	sub		$tmp22 $const4 $tmp21 	%argrw{"wrr"}
+	mul		ridges resultF $tmp22 	%argrw{"wrr"}
+# framePat.osl:27
+# 	float vv2 = mod(repeatCount*v,1);
+	mul		$tmp23 repeatCount v 	%line{27} %argrw{"wrr"}
+	functioncall	$const5 36 	%argrw{"r"}
+# /opt/pixar/RenderManProServer-21.4/lib/osl/include/stdosl.h:135
+# PERCOMP1 (log2)
+	div		$tmp25 $tmp23 $const4 	%filename{"/opt/pixar/RenderManProServer-21.4/lib/osl/include/stdosl.h"} %line{135} %argrw{"wrr"}
+	floor		$tmp24 $tmp25 	%argrw{"wr"}
+	mul		$tmp26 $const4 $tmp24 	%argrw{"wrr"}
+	sub		vv2 $tmp23 $tmp26 	%argrw{"wrr"}
+# framePat.osl:30
+# 	dist2=abs(vv2-where);
+	sub		$tmp27 vv2 where 	%filename{"framePat.osl"} %line{30} %argrw{"wrr"}
+	abs		dist2 $tmp27 	%argrw{"wr"}
+# framePat.osl:34
+#     inStrip =smoothstep(2.5*width-fuzz,2.5*width+fuzz,dist2);
+	mul		$tmp28 $const10 width 	%line{34} %argrw{"wrr"}
+	sub		$tmp29 $tmp28 fuzz 	%argrw{"wrr"}
+	mul		$tmp30 $const10 width 	%argrw{"wrr"}
+	add		$tmp31 $tmp30 fuzz 	%argrw{"wrr"}
+	smoothstep	inStrip $tmp29 $tmp31 dist2 	%argrw{"wrrr"}
+# framePat.osl:36
+# 	resultF=inStrip*0.7*depth;
+	mul		$tmp32 inStrip $const11 	%line{36} %argrw{"wrr"}
+	mul		resultF $tmp32 depth 	%argrw{"wrr"}
+# framePat.osl:37
+# 	float bands=resultF*((smoothstep(0.5-fuzz,0.5+fuzz,v)));	
+	sub		$tmp34 $const8 fuzz 	%line{37} %argrw{"wrr"}
+	add		$tmp35 $const8 fuzz 	%argrw{"wrr"}
+	smoothstep	$tmp33 $tmp34 $tmp35 v 	%argrw{"wrrr"}
+	mul		bands resultF $tmp33 	%argrw{"wrr"}
+# framePat.osl:44
+# 	resultF=bands+ridges;
+	add		resultF bands ridges 	%line{44} %argrw{"wrr"}
 	end

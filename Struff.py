@@ -45,7 +45,7 @@ ri.Display("SeriousStruff.exr", "it", "rgba")
 ri.Hider("raytrace",{"int incremental": [1],"int maxsamples": [256],"int minsamples":[4]})
 ri.Integrator("PxrPathTracer","MyIntegrator",{"int numLightSamples":[4],"int numBxdfSamples": [4],"int numIndirectSamples": [1]})
 #ri.Integrator("PxrVCM","MyIntegrator",{"int numLightSamples":[256],"int numBxdfSamples":[256]})
-ri.Format(720,720,1)
+ri.Format(1280,720,1)
 ri.Projection(ri.PERSPECTIVE, {ri.FOV: 45}) # standard Ri tokens are available
 ri.Translate(0,0,8)
 ri.Rotate(-90,0,0,1)
@@ -144,7 +144,7 @@ ri.Bxdf("PxrDisney","forCone",
 ri.Translate(2.14,2.14,0.69)
 ri.Rotate(90, 0,1,0)
 ri.Rotate(-45,1,0,0)
-ri.Scale(0.6,0.6,0.6)
+ri.Scale(0.65,0.65,0.65)
 
 ri.Cone(0.09,0.15,360)
 
@@ -187,7 +187,7 @@ ri.TransformBegin()
 
 ri.Attribute("displacementbound",  {"float sphere" : [0.001], "string coordinatesystem" : ["shader"]})
 ri.Pattern("dispHandle", "diskTx")
-ri.Displace("PxrDisplace", "myDisp",{"float dispAmount": [ 0.5 ],"reference float dispScalar": [ "diskTx:resultF" ]})
+ri.Displace("PxrDisplace", "myDisp",{"float dispAmount": [ 0.1 ],"reference float dispScalar": [ "diskTx:resultF" ]})
 
 ri.Bxdf("PxrDisney","forFrame1",
 {"reference color baseColor": ["myShader:Cout"],

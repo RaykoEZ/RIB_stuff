@@ -34,45 +34,45 @@ temp	normal	$tmp10	%read{17,17} %write{16,16}
 temp	float	$tmp11	%read{19,19} %write{18,18}
 const	float	$const3	0.07		%read{19,19} %write{2147483647,-1}
 code ___main___
-# dispHandle.osl:10
-#  float uu=fmod(u*repeat,1.0);
-	mul		$tmp1 u repeat 	%filename{"dispHandle.osl"} %line{10} %argrw{"wrr"}
-	fmod		uu $tmp1 $const1 	%argrw{"wrr"}
 # dispHandle.osl:11
+#  float uu=fmod(u*repeat,1.0);
+	mul		$tmp1 u repeat 	%filename{"dispHandle.osl"} %line{11} %argrw{"wrr"}
+	fmod		uu $tmp1 $const1 	%argrw{"wrr"}
+# dispHandle.osl:12
 #  float vv=fmod(v*repeat,1.0);
-	mul		$tmp2 v repeat 	%line{11} %argrw{"wrr"}
+	mul		$tmp2 v repeat 	%line{12} %argrw{"wrr"}
 	fmod		vv $tmp2 $const1 	%argrw{"wrr"}
-# dispHandle.osl:14
-#  float blx=step(edgeSize,uu);
-	step		blx edgeSize uu 	%line{14} %argrw{"wrr"}
 # dispHandle.osl:15
+#  float blx=step(edgeSize,uu);
+	step		blx edgeSize uu 	%line{15} %argrw{"wrr"}
+# dispHandle.osl:16
 #  float bly=step(edgeSize,vv);
-	step		bly edgeSize vv 	%line{15} %argrw{"wrr"}
-# dispHandle.osl:17
-#  float trx=step(edgeSize,1-uu);
-	sub		$tmp3 $const1 uu 	%line{17} %argrw{"wrr"}
-	step		trx edgeSize $tmp3 	%argrw{"wrr"}
+	step		bly edgeSize vv 	%line{16} %argrw{"wrr"}
 # dispHandle.osl:18
-#  float try=step(edgeSize,1-vv);
-	sub		$tmp4 $const1 vv 	%line{18} %argrw{"wrr"}
-	step		try edgeSize $tmp4 	%argrw{"wrr"}
+#  float trx=step(edgeSize,1-uu);
+	sub		$tmp3 $const1 uu 	%line{18} %argrw{"wrr"}
+	step		trx edgeSize $tmp3 	%argrw{"wrr"}
 # dispHandle.osl:19
+#  float try=step(edgeSize,1-vv);
+	sub		$tmp4 $const1 vv 	%line{19} %argrw{"wrr"}
+	step		try edgeSize $tmp4 	%argrw{"wrr"}
+# dispHandle.osl:20
 #  float edge=blx * bly * trx * try;
-	mul		$tmp5 blx bly 	%line{19} %argrw{"wrr"}
+	mul		$tmp5 blx bly 	%line{20} %argrw{"wrr"}
 	mul		$tmp6 $tmp5 trx 	%argrw{"wrr"}
 	mul		edge $tmp6 try 	%argrw{"wrr"}
-# dispHandle.osl:20
+# dispHandle.osl:21
 #  float fuzzEdge=smoothstep(edgeSize-fuzz,edgeSize+fuzz,edge);
-	sub		$tmp7 edgeSize fuzz 	%line{20} %argrw{"wrr"}
+	sub		$tmp7 edgeSize fuzz 	%line{21} %argrw{"wrr"}
 	add		$tmp8 edgeSize fuzz 	%argrw{"wrr"}
 	smoothstep	fuzzEdge $tmp7 $tmp8 edge 	%argrw{"wrrr"}
-# dispHandle.osl:22
+# dispHandle.osl:23
 #  resultF=-length(N*fuzzEdge)*0.07;
-	mul		$tmp10 N fuzzEdge 	%line{22} %argrw{"wrr"}
+	mul		$tmp10 N fuzzEdge 	%line{23} %argrw{"wrr"}
 	length		$tmp9 $tmp10 	%argrw{"wr"}
 	neg		$tmp11 $tmp9 	%argrw{"wr"}
 	mul		resultF $tmp11 $const3 	%argrw{"wrr"}
-# dispHandle.osl:23
+# dispHandle.osl:24
 #  resultRGB=mix(C1,C2,fuzzEdge);
-	mix		resultRGB C1 C2 fuzzEdge 	%line{23} %argrw{"wrrr"}
+	mix		resultRGB C1 C2 fuzzEdge 	%line{24} %argrw{"wrrr"}
 	end

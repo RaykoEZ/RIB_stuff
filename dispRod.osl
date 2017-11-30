@@ -7,25 +7,21 @@ shader dispRod(
 	output float resultF=0
 						)
 {
-
+//Indents on handle
 	float dist;
     float inStrip;
 
 	float vv = mod(repeatCount*v,1);
-
-
 	dist=abs(vv-where);
-
 	
-
     inStrip =1-smoothstep(width-fuzz,width+fuzz,dist);
 
 
 	resultF=-inStrip*depth;
 	// displace at centre points 0.2 and 0.9 of the cylinder, rest of the cylinder is 0
 	float bands=resultF*( 1-(smoothstep(0.2-fuzz,0.2+fuzz,v)-smoothstep(0.9-fuzz,0.9+fuzz,v)));	
-
-
+//--------------------------------------------------------------------------------------------------------------
+//Bump at the middle of handle,under cross handle
 	float dist2;
     float inDisk;
 
@@ -39,7 +35,7 @@ shader dispRod(
     float bumps=resultF*((linearstep(0.25-fuzz,0.26+fuzz,v)-linearstep(0.9-fuzz,0.95+fuzz,v)));
 	
 //----------------------------------------------------------------------------------------------------------------------------------	
-
+//Cross pattern on handle
 
 	float s1=mod(v*60+u*9,1);
 	float s2=mod(v*60-u*9,1);
@@ -50,8 +46,17 @@ shader dispRod(
 		float latticeOut=resultF*((linearstep(0.26-lattice,0.75+lattice,v)-linearstep(0.75-lattice,0.80+lattice,v)));	
 
 
+//---------------------------------------------------------------------------------------------------------------------------------
+//Horizontal pattern at the end:
 
-	resultF=bands+bumps+latticeOut;
+	float groove1 = mod(60*u,1);
+
+	float groovePattern = abs(0.5-groove1);
+	float grooveOut = resultF*(linearstep(0.95-groovePattern,0.95+lattice,v));
+
+
+//---------------------------------------------------------------------------------------------------------------------------------
+	resultF=bands+bumps+latticeOut+grooveOut;
 	
 
 
