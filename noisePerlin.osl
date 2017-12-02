@@ -1,6 +1,7 @@
-shader first(
+shader noisePerlin(
 	color Cin  = 0,
-output	color Cout = 0
+output	color Cout = 0,
+output float resultF = 0
 	)
 	{
 //Higher freq, more noise patches.
@@ -12,5 +13,5 @@ output	color Cout = 0
 			freq*=2.1;
 		}
 		Cout=Cin*fuzz;
-		
+		resultF=fuzz;
 	}

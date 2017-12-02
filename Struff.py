@@ -13,7 +13,7 @@ import prman
 ri = prman.Ri() # create an instance of the RenderMan interface
 
 #shader call for handle indents
-def indentRod(depth,width,fuzz,where):
+def dispRod(depth,width,fuzz,where):
     ri.Attribute("displacementbound",  {"float sphere" : [0.01], "string coordinatesystem" : ["shader"]})
     ri.Pattern("dispRod", "rodIndent",
     {
@@ -25,7 +25,7 @@ def indentRod(depth,width,fuzz,where):
     ri.Displace("PxrDisplace", "myRodDisp",{"float dispAmount": [ 0.7 ],"reference float dispScalar": [ "rodIndent:resultF" ]})
     return
 
-def framePattern(depth,width,fuzz,where):
+def dispFrame(depth,width,fuzz,where):
     ri.Attribute("displacementbound",  {"float sphere" : [0.001], "string coordinatesystem" : ["shader"]})
     ri.Pattern("framePat", "frame",
     {
@@ -38,6 +38,8 @@ def framePattern(depth,width,fuzz,where):
     return
 
 
+
+
 #------------------------------------------------------------------------
 rendertarget = "SeriousStruff.rib"
 ri.Begin(rendertarget)  # set rendertarget to ri.RENDER to render pixels
@@ -47,24 +49,24 @@ ri.Integrator("PxrPathTracer","MyIntegrator",{"int numLightSamples":[4],"int num
 #ri.Integrator("PxrVCM","MyIntegrator",{"int numLightSamples":[256],"int numBxdfSamples":[256]})
 ri.Format(1280,720,1)
 ri.Projection(ri.PERSPECTIVE, {ri.FOV: 45}) # standard Ri tokens are available
-ri.Translate(0,0,8)
+
+#camera setting1:
+ri.Translate(0,0.8,5)
 ri.Rotate(-90,0,0,1)
-#ri.Rotate(60,0,1,0)
-ri.Rotate(70,0,1,0)
-#ri.Rotate(90,1,0,0)
+ri.Rotate(55,0,1,0)
 
 ri.WorldBegin()
 #global noise pattern
-ri.Pattern("first","myShader",{"color Cin":[0.9,0.9,0.5]})
+ri.Pattern("noisePerlin","myShader",{"color Cin":[0.9,0.9,0.5]})
 #domelight
 ri.AttributeBegin()
 ri.TransformBegin()
 ri.Rotate(180,1,0,0)
-#ri.Rotate(180,0,1,0)
+ri.Rotate(45,0,0,1)
 
 #vvv----reference----vvv
+#http://adaptivesamples.com/tag/free-hdr/
 
-#http://www.thebelgianvfxguy.com/2013/02/ibl-and-environment-maps-for-cgi.html 
 
 ri.Light("PxrDomeLight","myLight",{"float exposure":[-1],"string lightColorMap": ["room.tx"]})
 
@@ -78,23 +80,22 @@ ri.AttributeBegin()
 ri.TransformBegin()
 
 
-ri.Translate(0,0,-0.3)
+ri.Translate(0,0,-0.032)
 
 #Lens Frame
 ri.TransformBegin()
 ri.AttributeBegin()
 
+#framePattern(depth,width,fuzz,where):
+dispFrame(0.015,0.04,0.03,0.5)
+
 ri.Bxdf("PxrDisney","forFrame",
 {"reference color baseColor": ["myShader:Cout"],
 "float metallic":[1.0],
-"float specular": [0.5],
+"reference float specular": ["frame:resultF"],
 "float roughness": [0.3],
 "float clearcoat":[0.5]
 })
-
-#framePattern(depth,width,fuzz,where):
-framePattern(0.015,0.04,0.03,0.5)
-
 
 
 ri.Cylinder(1.0,0.6,0.8,360)
@@ -133,6 +134,7 @@ ri.TransformEnd()
 ri.AttributeBegin()
 ri.TransformBegin()
 
+
 ri.Bxdf("PxrDisney","forCone",
 {"reference color baseColor": ["myShader:Cout"],
 "float metallic":[1.0],
@@ -161,13 +163,13 @@ ri.TransformBegin()
 #ri.Displace("PxrDisplace", "myRodDisp",{"float dispAmount": [ 0.7 ],"reference float dispScalar": [ "rodTx:resultF" ]})
 #  vvv  replaced by function call  vvv
 #indentRod(depth,width,fuzz,where):
-indentRod(0.035,0.03,0.02,0.6)
-
+dispRod(0.035,0.03,0.02,0.6)
 
 ri.Bxdf("PxrDisney","forHandle",
 {"reference color baseColor": ["myShader:Cout"],
 "float metallic":[1.0],
-"float specular": [0.5],
+#"refernce float specular": ["myShader:resultF"],
+"float specular": [0.1],
 "float roughness": [0.1],
 "float clearcoat":[0.5]
 })
@@ -192,7 +194,7 @@ ri.Displace("PxrDisplace", "myDisp",{"float dispAmount": [ 0.1 ],"reference floa
 ri.Bxdf("PxrDisney","forFrame1",
 {"reference color baseColor": ["myShader:Cout"],
 "float metallic":[1.0],
-"float specular": [0.5],
+"reference float specular": ["myShader:resultF"],
 "float roughness": [0.1],
 "float clearcoat":[0.5]
 })
@@ -220,6 +222,14 @@ ri.AttributeBegin()
 ri.TransformBegin()
 
 ri.Rotate(90, 0,0,1)
+
+
+ri.Bxdf("PxrDisney","forPatch",
+{
+"float specular": [0.05],
+"float roughness": [0.55],
+"float clearcoat":[0.5]
+})
 
 ri.Translate(-10,-5,0.82)
 ri.Pattern("PxrTexture","patchTex",{"string filename":["wood.tx"]})
