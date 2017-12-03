@@ -51,9 +51,15 @@ ri.Format(1280,720,1)
 ri.Projection(ri.PERSPECTIVE, {ri.FOV: 45}) # standard Ri tokens are available
 
 #camera setting1:
+#ri.Translate(0,0.8,5)
+#ri.Rotate(-90,0,0,1)
+#ri.Rotate(55,0,1,0)
+
+
+#camera setting2:
 ri.Translate(0,0.8,5)
-ri.Rotate(-90,0,0,1)
-ri.Rotate(55,0,1,0)
+ri.Rotate(55,1,0,0)
+
 
 ri.WorldBegin()
 #global noise pattern

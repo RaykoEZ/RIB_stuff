@@ -6,8 +6,7 @@ Integrator "PxrPathTracer" "MyIntegrator" "int numLightSamples" [4] "int numBxdf
 Format 1280 720 1
 Projection "perspective" "uniform float fov" [45]
 Translate 0 0.8 5
-Rotate -90 0 0 1
-Rotate 55 0 1 0
+Rotate 55 1 0 0
 WorldBegin 
 Pattern "noisePerlin" "myShader" "color Cin" [0.9 0.9 0.5]
 AttributeBegin 
