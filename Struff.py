@@ -49,16 +49,17 @@ ri.Integrator("PxrPathTracer","MyIntegrator",{"int numLightSamples":[4],"int num
 #ri.Integrator("PxrVCM","MyIntegrator",{"int numLightSamples":[256],"int numBxdfSamples":[256]})
 ri.Format(1280,720,1)
 ri.Projection(ri.PERSPECTIVE, {ri.FOV: 45}) # standard Ri tokens are available
+ri.Exposure(1.0, 2.2)
 
 #camera setting1:
-#ri.Translate(0,0.8,5)
-#ri.Rotate(-90,0,0,1)
-#ri.Rotate(55,0,1,0)
+ri.Translate(0,0.8,5)
+ri.Rotate(-90,0,0,1)
+ri.Rotate(55,0,1,0)
 
 
 #camera setting2:
-ri.Translate(0,0.8,5)
-ri.Rotate(55,1,0,0)
+#ri.Translate(0,0.8,5)
+#ri.Rotate(55,1,0,0)
 
 
 ri.WorldBegin()
@@ -74,7 +75,7 @@ ri.Rotate(45,0,0,1)
 #http://adaptivesamples.com/tag/free-hdr/
 
 
-ri.Light("PxrDomeLight","myLight",{"float exposure":[-1],"string lightColorMap": ["room.tx"]})
+ri.Light("PxrDomeLight","myLight",{"float exposure":[0],"string lightColorMap": ["room.tx"]})
 
 
 ri.TransformEnd()
