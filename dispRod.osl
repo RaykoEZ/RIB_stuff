@@ -43,7 +43,7 @@ shader dispRod(
 	float lattice=max(abs(0.5-s1),abs(0.5-s2))*3;
 
 	//float latticeOut=resultF*((linearstep(0.26-lattice,0.75+lattice,v)-linearstep(0.75-lattice,0.80+lattice,v)));	
-		float latticeOut=resultF*((linearstep(0.26-lattice,0.75+lattice,v)-linearstep(0.75-lattice,0.80+lattice,v)));	
+	float latticeOut=resultF*((linearstep(0.26-lattice,0.75+lattice,v)-linearstep(0.75-lattice,0.80+lattice,v)));	
 
 
 //---------------------------------------------------------------------------------------------------------------------------------
