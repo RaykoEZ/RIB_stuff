@@ -10,6 +10,7 @@ shader framePat(
 	float dist;
     float inDisk;
 
+	//2 s the repeatCount in v
 	float vv = mod(2*v,1);
 	float uu = mod(45*repeatCount*u,1);
 
@@ -17,6 +18,7 @@ shader framePat(
     inDisk =smoothstep(width-fuzz,width+fuzz,dist);
 	//inDisk =smoothstep(width-fuzz,width+fuzz,dist)*(1/smoothstep(width-fuzz,width+fuzz,dist));
 	resultF=inDisk*depth;
+	//Ridges repeating twice in v starting at the edges of the frame  
     float ridges = resultF*(1-(smoothstep(0.5-fuzz,0.5+fuzz,u)-smoothstep(0.15-fuzz,0.15+fuzz,v)));
 	
 
@@ -34,11 +36,10 @@ shader framePat(
     inStrip =smoothstep(2.5*width-fuzz,2.5*width+fuzz,dist2);
 
 	resultF=inStrip*0.7*depth;
+
+	//Band at the centre of the frame
 	float bands=resultF*((smoothstep(0.5-fuzz,0.5+fuzz,v)));	
 
-
-
-	
 
 
 	resultF=bands+ridges;
