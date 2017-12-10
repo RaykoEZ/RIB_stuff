@@ -3,10 +3,10 @@ version 3.04
 Display "SeriousStruff.exr" "it" "rgba" 
 Hider "raytrace" "int incremental" [1] "int minsamples" [4] "int maxsamples" [256]
 Integrator "PxrPathTracer" "MyIntegrator" "int numLightSamples" [4] "int numBxdfSamples" [4] "int numIndirectSamples" [1]
-Format 1280 720 1
+Format 500 500 1
 Projection "perspective" "uniform float fov" [45]
 Exposure 1 2.2
-Translate 0 0.8 5
+Translate 0 0.8 7
 Rotate -90 0 0 1
 Rotate 55 0 1 0
 WorldBegin 
@@ -15,7 +15,7 @@ AttributeBegin
 TransformBegin 
 Rotate 180 1 0 0
 Rotate 45 0 0 1
-Light "PxrDomeLight" "myLight" "float exposure" [0] "string lightColorMap" ["room.tx"]
+Light "PxrDomeLight" "myLight" "float exposure" [0] "string lightColorMap" ["roomLowDRange.tx"]
 TransformEnd 
 AttributeEnd 
 AttributeBegin 

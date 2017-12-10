@@ -47,12 +47,14 @@ ri.Display("SeriousStruff.exr", "it", "rgba")
 ri.Hider("raytrace",{"int incremental": [1],"int maxsamples": [256],"int minsamples":[4]})
 ri.Integrator("PxrPathTracer","MyIntegrator",{"int numLightSamples":[4],"int numBxdfSamples": [4],"int numIndirectSamples": [1]})
 #ri.Integrator("PxrVCM","MyIntegrator",{"int numLightSamples":[256],"int numBxdfSamples":[256]})
-ri.Format(1280,720,1)
+#ri.Format(1280,720,1)
+#low res for testing and comparison
+ri.Format(500,500,1)
 ri.Projection(ri.PERSPECTIVE, {ri.FOV: 45}) # standard Ri tokens are available
 ri.Exposure(1.0, 2.2)
 
 #camera setting1:
-ri.Translate(0,0.8,5)
+ri.Translate(0,0.8,7)
 ri.Rotate(-90,0,0,1)
 ri.Rotate(55,0,1,0)
 
@@ -76,7 +78,7 @@ ri.Rotate(45,0,0,1)
 
 
 ri.Light("PxrDomeLight","myLight",{"float exposure":[0],"string lightColorMap": ["room.tx"]})
-
+#ri.Light("PxrDomeLight","myLight",{"float exposure":[0],"string lightColorMap": ["roomLowDRange.tx"]})
 
 ri.TransformEnd()
 ri.AttributeEnd()
@@ -97,7 +99,10 @@ ri.AttributeBegin()
 dispFrame(0.015,0.04,0.03,0.5)
 
 ri.Bxdf("PxrDisney","forFrame",
-{"reference color baseColor": ["myShader:Cout"],
+{
+"reference color baseColor": ["myShader:Cout"],
+#For comparison:
+#"color baseColor": [0.9,0.9,0.5],
 "float metallic":[1.0],
 "reference float specular": ["frame:resultF"],
 "float roughness": [0.3],
@@ -143,7 +148,10 @@ ri.TransformBegin()
 
 
 ri.Bxdf("PxrDisney","forCone",
-{"reference color baseColor": ["myShader:Cout"],
+{
+"reference color baseColor": ["myShader:Cout"],
+#For comparison:
+#"color baseColor": [0.9,0.9,0.5],
 "float metallic":[1.0],
 "float specular": [0.5],
 "float roughness": [0.1],
@@ -173,7 +181,10 @@ ri.TransformBegin()
 dispRod(0.035,0.03,0.02,0.6)
 
 ri.Bxdf("PxrDisney","forHandle",
-{"reference color baseColor": ["myShader:Cout"],
+{
+"reference color baseColor": ["myShader:Cout"],
+#For comparison:
+#"color baseColor": [0.9,0.9,0.5],
 "float metallic":[1.0],
 #"refernce float specular": ["myShader:resultF"],
 "float specular": [0.1],
@@ -199,7 +210,10 @@ ri.Pattern("dispHandle", "diskTx")
 ri.Displace("PxrDisplace", "myDisp",{"float dispAmount": [ 0.1 ],"reference float dispScalar": [ "diskTx:resultF" ]})
 
 ri.Bxdf("PxrDisney","forFrame1",
-{"reference color baseColor": ["myShader:Cout"],
+{
+"reference color baseColor": ["myShader:Cout"],
+#For comparison:
+#"color baseColor": [0.9,0.9,0.5],
 "float metallic":[1.0],
 "reference float specular": ["myShader:resultF"],
 "float roughness": [0.1],
